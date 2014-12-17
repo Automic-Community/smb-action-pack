@@ -142,7 +142,7 @@ java -jar "&$AGENT_RESOURCES_CLIENT#/ARATools.jar" dirfilehandling GetFiles -prc
 
 :INCLUDE PCK.ITPA_SHARED.PRV.INCLUDE.CHECK_SHELL_CMD@UNIX
 :OTHER
-
+:  STOP NOMSG, 50, "Unknown Platform"
 :ENDSWITCH
 ]]></MSCRI>
 </SCRIPT>
