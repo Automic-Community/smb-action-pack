@@ -2,7 +2,7 @@
 <uc-export clientvers="11.0.0-sprint.20141111.1610+build.2828">
 <JOBP AllowExternal="1" name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY">
 <XHEADER state="1">
-<Title>NEW.ACTION</Title>
+<Title>SMB Copy</Title>
 <ArchiveKey1/>
 <ArchiveKey2/>
 <Active>1</Active>
@@ -56,7 +56,6 @@
 <node content="1" id="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY" name="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY" parent="PPRPTS" type="PPROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">
 <PRPTBOX promptset="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">
-<ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_CONNECT_TIMEOUTs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_CONNECT_TIMEOUT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">5000</UC4RB_SMB_CONNECT_TIMEOUTs.00>
 <UC4RB_SMB_DOMAIN_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_DOMAIN_NAME#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_HOSTs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_HOST#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
@@ -122,7 +121,6 @@
 <node content="1" id="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY" name="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY" parent="PPRPTS" type="PPROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">
 <PRPTBOX promptset="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">
-<ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_CONNECT_TIMEOUTs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_CONNECT_TIMEOUT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">5000</UC4RB_SMB_CONNECT_TIMEOUTs.00>
 <UC4RB_SMB_DOMAIN_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_DOMAIN_NAME#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_HOSTs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_HOST#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
@@ -174,7 +172,6 @@
 <node content="1" id="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY" name="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY" parent="PPRPTS" type="PPROMPTSET">
 <PROMPTSET name="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">
 <PRPTBOX promptset="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">
-<ELEMENT ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="ELEMENT" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_CONNECT_TIMEOUTs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_CONNECT_TIMEOUT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">5000</UC4RB_SMB_CONNECT_TIMEOUTs.00>
 <UC4RB_SMB_DOMAIN_NAMEs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_DOMAIN_NAME#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_HOSTs.00 ReadFromTable="OPSE" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_HOST#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
