@@ -1,0 +1,49 @@
+*** Settings ***
+Suite Setup       Suite Setup
+Force Tags        smb copy    invalid    win    unix
+Test Template     Copy Template
+Resource          ../../resources/keywords.txt
+
+*** Test Cases ***    Host                     Port          Source               User             Password       Return Code    Message
+Wrong Host            VVNSATSTNDRD01INVALID    \             source${/}Notes      tester           ventum2011@    999            ${FailedToConnectToServer}
+
+Wrong Port            VVNSATSTNDRD01           1399999999    source               tester           ventum2011@    999            ${FailedToConnectToServer}
+
+Wrong Source          VVNSATSTNDRD01           \             source${/}invalid    tester           ventum2011@    4              ${EMPTY}
+
+Wrong User            VVNSATSTNDRD01           \             source_test          tester           ventum2011@    999            ${EMPTY}
+
+Wrong Password        VVNSATSTNDRD01           \             source_test          administrator    S3rv3r@Aut1    999            ${EMPTY}
+
+Anonymous User From A Shared Folder Not Allow Anonymous
+                      VVNSATSTNDRD01           \             source_test          \                \              999            ${AccessIsDenied}
+
+User Does Not Have Permission To Access Shared Folder
+                      VVNSATSTNDRD01           \             source_test          tester           ventum2011@    999            ${AccessIsDenied}
+
+*** Keywords ***
+Copy Template
+    [Arguments]    ${host}    ${port}    ${source}    ${user}    ${password}    ${returnCode}
+    ...    ${message}
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    ${host}
+    Action Set    ${PRT_SMB_PORT}    ${port}
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source}
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}    /
+    Action Set    ${PRT_SMB_USER}    ${user}
+    Action Set    ${PRT_SMB_PWD}    ${password}
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    /
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${_WORKING_DIR}${/}target
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    YES
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Action Report Should Be Found
+    Action Return Code Should Not Equal    0
+    Action Return Status Should Be    ${EndedNotOK}
+    Action Report Should Contain    ${message}
+    Action Report Should Contain    START AT
+    #Action Report Should Contain    PARAMETER VALIDATION START
+    #Action Report Should Contain    EXECUTION START
+    #Action Report Should Contain    ABEND AT
+    #Action Report Should Contain    RET-CODE

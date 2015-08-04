@@ -1,0 +1,50 @@
+*** Settings ***
+Suite Setup       Suite Setup
+Force Tags        smb copy    win    unix
+Test Template     Export Template
+Resource          ../../resources/keywords.txt
+
+*** Test Cases ***    Overwrite1    Overwrite2    Message
+Copy Overwrite No     NO            NO            ${AlreadyExistsSkipping}
+
+Copy Overwrite Yes    YES           YES           ${EMPTY}
+
+*** Keywords ***
+Export Template
+    [Arguments]    ${overwrite1}    ${overwrite2}    ${message}
+    Clean Up Directory    ${_WORKING_DIR}${/}target
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    #Action Set    ${PRT_SMB_PORT}    139
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    source
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}
+    Action Set    ${PRT_SMB_USER}    administrator
+    Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    5000
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${_WORKING_DIR}${/}target
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    ${overwrite1}
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    #Action Set    ${PRT_SMB_PORT}    139
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    source
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}
+    Action Set    ${PRT_SMB_USER}    administrator
+    Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    5000
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${_WORKING_DIR}${/}target
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    ${overwrite2}
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Action Report Should Be Found
+    Action Return Code Should Be    0
+    Action Return Status Should Be    ${EndedOK}
+    Action Report Should Contain    ${message}
+    Action Report Should Contain    START AT
+    #Action Report Should Contain    PARAMETER VALIDATION START
+    #Action Report Should Contain    EXECUTION START
+    Action Report Should Contain    ENDED AT
+    #Action Report Should Contain    RET-CODE

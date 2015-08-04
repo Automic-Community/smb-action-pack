@@ -1,0 +1,56 @@
+*** Settings ***
+Suite Setup       Suite Setup
+Force Tags        smb copy    valid    win    unix
+Test Template     Copy Template
+Resource          ../../resources/keywords.txt
+
+*** Test Cases ***    Source                 User             Password       Recursive    Target
+Admin User Wildcards Star Case 1
+                      ${/}source${/}*        administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Admin User Wildcards Star Case 2
+                      source${/}*.pdf        administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Admin User Wildcards Star Case 3
+                      source${/}Test*        administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Access With Another User Wildcards Star
+                      source${/}*.pdf        tester           ventum2011@    YES          ${_WORKING_DIR}${/}target
+
+Admin User Wildcards Question Mark Case 1
+                      source${/}*?.*         administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Admin User Wildcards Question Mark Case 2
+                      source${/}????2.*      administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Admin User Wildcards Question Mark Case 3
+                      source${/}Test?.pdf    administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Recursive Yes         source${/}Test*        administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+*** Keywords ***
+Copy Template
+    [Arguments]    ${source}    ${user}    ${password}    ${recursive}    ${target}
+    Clean Up Directory    ${_WORKING_DIR}${/}target
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    #Action Set    ${PRT_SMB_PORT}    139
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source}
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}    sbb01
+    Action Set    ${PRT_SMB_USER}    ${user}
+    Action Set    ${PRT_SMB_PWD}    ${password}
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    ${recursive}
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    5000
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${target}
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    YES
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Action Report Should Be Found
+    Action Return Code Should Be    0
+    Action Return Status Should Be    ${EndedOK}
+    #Action Report Should Contain    ${message}
+    Action Report Should Contain    START AT
+    #Action Report Should Contain    PARAMETER VALIDATION START
+    #Action Report Should Contain    EXECUTION START
+    Action Report Should Contain    ENDED AT
+    #Action Report Should Contain    RET-CODE

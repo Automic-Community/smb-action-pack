@@ -1,0 +1,55 @@
+*** Settings ***
+Suite Setup       Suite Setup
+Force Tags        smb copy    valid    win    unix
+Test Template     Copy Template
+Resource          ../../resources/keywords.txt
+
+*** Test Cases ***    Source                                                                            User             Password       Recursive    Target
+Admin User            source${/}Test1.ini                                                               administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Anonymous User From Shared Folder For Everyone
+                      source${/}Test1.ini                                                               \                \              YES          ${_WORKING_DIR}${/}target
+
+Rename At Target      source${/}Test1.ini                                                               \                \              YES          ${_WORKING_DIR}${/}target${/}New_Notes.Zip
+
+Access With Another User
+                      source${/}Test1.ini                                                               tester           ventum2011@    YES          ${_WORKING_DIR}${/}target
+
+Access With Guest User
+                      source${/}Test1.ini                                                               Guest            \              YES          ${_WORKING_DIR}${/}target
+
+From Empty Source     source_empty                                                                      administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Access With Name Is Long
+                      source${/}1111111111111111111111111111111111111111111111111111111111111111.pdf    administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Recursive Yes         source                                                                            administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
+
+Recursive No          source                                                                            administrator    S3rv3r@Aut     NO           ${_WORKING_DIR}${/}target
+
+*** Keywords ***
+Copy Template
+    [Arguments]    ${source}    ${user}    ${password}    ${recursive}    ${target}
+    Clean Up Directory    ${_WORKING_DIR}${/}target
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    #Action Set    ${PRT_SMB_PORT}    139
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source}
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}    sbb01
+    Action Set    ${PRT_SMB_USER}    ${user}
+    Action Set    ${PRT_SMB_PWD}    ${password}
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    ${recursive}
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    5000
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${target}
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    YES
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Action Report Should Be Found
+    Action Return Code Should Be    0
+    Action Return Status Should Be    ${EndedOK}
+    #Action Report Should Contain    ${message}
+    Action Report Should Contain    START AT
+    #Action Report Should Contain    PARAMETER VALIDATION START
+    #Action Report Should Contain    EXECUTION START
+    Action Report Should Contain    ENDED AT
+    #Action Report Should Contain    RET-CODE

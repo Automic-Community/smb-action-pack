@@ -1,0 +1,38 @@
+*** Settings ***
+Documentation     THIS CONTEXT FILE WORKING WITH DEV1 SYSTEM
+Resource          ../env/dev1.txt
+Resource          actions.txt
+
+*** Variables ***
+#- CONTEXT VARIABLES ---
+${_AGENT}         /
+${_LOGIN}         /
+${_WORKING_DIR}    /
+
+*** Key Words ***
+Suite Setup
+    Init AE And Package
+    Init SD Server
+
+Init AE And Package
+    Prepare Package    PCK.AUTOMIC_SMB
+    Action Connect    ${_AE_HOST}    ${_AE_PORT}    ${_AE_USER}    ${_AE_PASS}    ${_AE_TEMP_FOLD}
+
+Init Win Server
+    [Documentation]    TODO: Write server description here
+    Set Global Variable    ${_AGENT}    SD01DEV1
+    Set Global Variable    ${_LOGIN}    VVNSAT.LOGIN_ALL
+    Set Global Variable    ${_WORKING_DIR}    C:\\automic\\testcases\\PCK.AUTOMIC_SMB
+    Set Global Variable    ${/}    \\
+
+Init Unix Server
+    [Documentation]    TODO: Write server description here
+    Set Global Variable    ${_AGENT}    SD02DEV1
+    Set Global Variable    ${_LOGIN}    VVNSAT.LOGIN_ALL
+    Set Global Variable    ${_WORKING_DIR}    /opt/automic/testcases/PCK.AUTOMIC_SMB
+    Set Global Variable    ${/}    /
+
+Init SD Server
+    [Documentation]    Requirement
+    Run Keyword If    '${OS}' == 'WIN'    Init Win Server
+    Run Keyword If    '${OS}' == 'UNIX'    Init Unix Server
