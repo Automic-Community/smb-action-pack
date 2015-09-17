@@ -1,3 +1,7 @@
 connection.properties
 
 config.yml
+/tools/smb-tool/.settings
+/tools/smb-tool/target
+/tools/smb-tool/.classpath
+/tools/smb-tool/.project
