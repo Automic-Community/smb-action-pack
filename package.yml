@@ -1,2 +1,9 @@
 name: PCK.AUTOMIC_SMB
 source: ae
+binaries:
+- object: RESOURCES/LIBS/PCK.AUTOMIC_SMB.PRV.STORE
+  resources: 
+  - name: SMBTOOL.JAR
+    type: BINARY
+    path: tools/smb-tool/target/smb-tool.jar
+    version: 1.0.0
