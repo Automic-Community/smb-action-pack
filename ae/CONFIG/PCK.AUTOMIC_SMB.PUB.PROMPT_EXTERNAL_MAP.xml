@@ -29,13 +29,13 @@
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_CONNECT_TIMEOUT#" Value="EXT:/source/smb/connection_timeout" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_DOMAIN_NAME#" Value="EXT:/source/smb/domain_name" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_HOST#" Value="EXT:/source/smb/host" Value1="" Value2="" Value3="" Value4=""/>
-<row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_OVERWRITE#" Value="EXT:/target/overwrite_target" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_PORT#" Value="EXT:/source/smb/port" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_PRESERVE_ATT#" Value="EXT:/source/smb/preserve_att" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_PWD#" Value="EXT:/source/smb/password" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_RECURSIVE_GET#" Value="EXT:/source/smb/recursive_download" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_SRC_FILES_DIR#" Value="EXT:/source/source_files_dirs" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_TGT_FILES_DIR#" Value="EXT:/target/target_files_dirs" Value1="" Value2="" Value3="" Value4=""/>
+<row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_TGT_OVERWRITE#" Value="EXT:/target/overwrite_target" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="PCK.AUTOMIC_SMB.PUB.ACTION.COPY/UC4RB_SMB_USER#" Value="EXT:/source/smb/username" Value1="" Value2="" Value3="" Value4=""/>
 </Variables>
 </VARA>
