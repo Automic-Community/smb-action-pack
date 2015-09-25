@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
-<uc-export clientvers="11.0.0-sprint.20141111.1610+build.2828">
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
 <JOBS_GENERIC AttrType="GENERIC" name="PCK.AUTOMIC_SMB.PRV.JOB.COPY@GENERIC">
 <XHEADER state="1">
 <Title/>
@@ -45,8 +44,8 @@
 <MaxRetCode>0</MaxRetCode>
 <MrcExecute/>
 <MrcElseE>0</MrcElseE>
-<FcstStatus>0|U00000000 ??? ""</FcstStatus>
-<Ert>1</Ert>
+<FcstStatus>0| |</FcstStatus>
+
 <ErtMethodDef>1</ErtMethodDef>
 <ErtMethodFix>0</ErtMethodFix>
 <ErtFix>0</ErtFix>
@@ -98,6 +97,10 @@
 </PRE_SCRIPT>
 <SCRIPT mode="1" state="1">
 <MSCRI><![CDATA[:INCLUDE PCK.AUTOMIC_SMB.PRV.INCLUDE.ATTACH
+:SET &UC4RB_SMB_RECURSIVE_GET# = STR_UC(&UC4RB_SMB_RECURSIVE_GET#)
+:SET &UC4RB_SMB_TGT_OVERWRITE# = STR_UC(&UC4RB_SMB_TGT_OVERWRITE#)
+:SET &UC4RB_SMB_PRESERVE_ATT# = STR_UC(&UC4RB_SMB_PRESERVE_ATT#)
+
 :SWITCH &$PLATFORM#
 
 :CASE "WINDOWS"
