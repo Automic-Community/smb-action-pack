@@ -51,13 +51,13 @@ public class GetFiles extends AbstractPublicFeature {
         super.initialize();
 
         protocol = parser.addHelp(parser.addStringOption("prc", "protocol", true),
-                "Protocol used to get file/directory from remote machine. HTTP(S), FTP(S), SCP, SFTP, SMB are supported.");
+                "Protocol used to get file/directory from remote machine, SMB are supported.");
 
         host = parser.addHelp(parser.addStringOption("h", "host", true),
                 "Hostname or IP address of the source machine (i.e. sourcemachine.com, 192.168.1.2).");
 
         port = parser.addHelp(parser.addStringOption("p", "port", false),
-                "Port number of the source machine. Defaut: 80(http), 443(https), 21(ftp), 990(ftps), 22(scp/sftp), 139(smb). ");
+                "Port number of the source machine. Defaut: 139(smb). ");
 
         username = parser.addHelp(parser.addStringOption("u", "username", false),
                 "Optional username if the source machine requires authentication.");
@@ -120,7 +120,7 @@ public class GetFiles extends AbstractPublicFeature {
         try {
             portValue = Integer.parseInt(parser.getOptionValue(port));
         } catch (NumberFormatException e) {
-            Logger.log("Cannot get Port value,  use Default Value: 80(http), 443(https), 21(ftp), 990(ftps), 22(scp/sftp), 139(smb).", this.loglevelValue);
+            Logger.log("Cannot get Port value,  use Default Value: 139(smb).", this.loglevelValue);
         }
 
         String usernameValue = parser.getOptionValue(username);
@@ -145,36 +145,6 @@ public class GetFiles extends AbstractPublicFeature {
             Logger.log("Cannot get Timeout value, use Default Value: 5000", this.loglevelValue);
         }
 
-        //HTTP(S)/ FTP(S) only
-        String proxyHostValue = null;
-        int proxyPortValue = 80;
-        String proxyUserValue = null;
-        String proxyPasswordValue = null;
-
-        if(protocolValue.equalsIgnoreCase("HTTP") ||
-                protocolValue.equalsIgnoreCase("HTTPS") ||
-                protocolValue.equalsIgnoreCase("FTP") ||
-                protocolValue.equalsIgnoreCase("FTPS")){
-
-            proxyHostValue = parser.getOptionValue(proxyHost);
-            if(proxyHostValue != null)
-                try {
-                    proxyPortValue = Integer.parseInt(parser.getOptionValue(proxyPort));
-                } catch (NumberFormatException e) {
-                    Logger.log("Cannot get Proxy Port value, use Default Value: 80", this.loglevelValue);
-                }
-            proxyUserValue = parser.getOptionValue(proxyUsername);
-            proxyPasswordValue = parser.getOptionValue(proxyPassword);
-        }
-
-        //FTP/FTPS only
-        String transferModeValue = null;
-        if(protocolValue.equalsIgnoreCase("FTP") || protocolValue.equalsIgnoreCase("FTPS")) {
-            String transferModeStr = parser.getOptionValue(transferMode);
-            transferModeValue = transferModeStr != null && transferModeStr.equalsIgnoreCase("text") ? "TEXT" : "BINARY";
-        }
-
-        // SMB only
         String smbDomainNameValue = null;
         if(protocolValue.equalsIgnoreCase("SMB"))
             smbDomainNameValue = parser.getOptionValue(smbDomainName);
@@ -187,33 +157,9 @@ public class GetFiles extends AbstractPublicFeature {
             abstractCopy = new CopySMB(hostValue, portValue, usernameValue, passwordValue, fromValue, recursiveValue, toValue,
                     overwriteValue, timeoutValue, preserveValue, smbDomainNameValue);
 
-        else if (protocolValue.equals("SCP"))
-            abstractCopy = new CopySCP(hostValue, portValue, usernameValue, passwordValue, fromValue, recursiveValue, toValue,
-                    overwriteValue, timeoutValue, preserveValue);
-
-        else if (protocolValue.equals("SFTP"))
-            abstractCopy = new CopySFTP(hostValue, portValue, usernameValue, passwordValue, fromValue, recursiveValue, toValue,
-                    overwriteValue, timeoutValue, preserveValue);
-
-        else if (protocolValue.equals("FTP"))
-            abstractCopy = new CopyFTP(hostValue, portValue, usernameValue, passwordValue, fromValue, recursiveValue, toValue,
-                    overwriteValue, timeoutValue, preserveValue, proxyHostValue, proxyPortValue, proxyUserValue, proxyPasswordValue, transferModeValue, false);
-
-        else if (protocolValue.equals("FTPS"))
-            abstractCopy = new CopyFTP(hostValue, portValue, usernameValue, passwordValue, fromValue, recursiveValue, toValue,
-                    overwriteValue, timeoutValue, preserveValue, proxyHostValue, proxyPortValue, proxyUserValue, proxyPasswordValue, transferModeValue, true);
-
-        else if (protocolValue.equals("HTTP"))
-            abstractCopy = new CopyHTTP(hostValue, portValue, usernameValue, passwordValue, fromValue, toValue,
-                    overwriteValue, timeoutValue, proxyHostValue, proxyPortValue, proxyUserValue, proxyPasswordValue, false);
-
-        else if (protocolValue.equals("HTTPS"))
-            abstractCopy = new CopyHTTP(hostValue, portValue, usernameValue, passwordValue, fromValue, toValue,
-                    overwriteValue, timeoutValue, proxyHostValue, proxyPortValue, proxyUserValue, proxyPasswordValue, true);
-
         else {
             FeatureUtil.logMsg("Unknown Protocol '" + protocol + "'. " +
-                    "Only support HTTP(S), FTP(S), SCP, SFTP, SMB. Aborting ...");
+                    "Only support SMB. Aborting ...");
             return ErrorCodes.PARAMSMISMATCH;
         }
 
