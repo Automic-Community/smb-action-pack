@@ -24,7 +24,7 @@
 </ATTR_VARA>
 <VARA state="1">
 <Variables>
-<row Name="Categories" Value="" Value1="" Value2="" Value3="" Value4=""/>
+<row Name="Categories" Value="Network, Download" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="Company" Value="Automic Software GmbH" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="Dependencies" Value="PCK.ITPA_SHARED ~&gt; 1.1" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="Description" Value="Downloads files from a SMB/CIFS server" Value1="" Value2="" Value3="" Value4=""/>

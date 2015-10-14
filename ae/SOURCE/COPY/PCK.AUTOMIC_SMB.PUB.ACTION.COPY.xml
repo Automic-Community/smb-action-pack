@@ -292,7 +292,7 @@
 <MSCRI/>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
-<DOC/>
+<DOC><![CDATA[Downloads files from a SMB/CIFS server]]></DOC>
 </DOCU_Docu>
 </JOBP>
 </uc-export>
