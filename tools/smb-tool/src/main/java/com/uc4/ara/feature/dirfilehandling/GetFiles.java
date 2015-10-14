@@ -57,7 +57,7 @@ public class GetFiles extends AbstractPublicFeature {
                 "Hostname or IP address of the source machine (i.e. sourcemachine.com, 192.168.1.2).");
 
         port = parser.addHelp(parser.addStringOption("p", "port", false),
-                "Port number of the source machine. Defaut: 139(smb). ");
+                "Port number of the source machine. Default: 139(smb). ");
 
         username = parser.addHelp(parser.addStringOption("u", "username", false),
                 "Optional username if the source machine requires authentication.");
