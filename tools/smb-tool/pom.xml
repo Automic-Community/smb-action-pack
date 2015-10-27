@@ -4,7 +4,7 @@
 	<groupId>com.uc4.ara.feature</groupId>
 	<artifactId>smb-tool</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<name>smb-tool</name>
 	<url>http://maven.apache.org</url>
 
@@ -13,7 +13,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<vendor>Automic Software GmbH</vendor>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
