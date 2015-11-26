@@ -5,3 +5,5 @@ config.yml
 /tools/smb-tool/target
 /tools/smb-tool/.classpath
 /tools/smb-tool/.project
+
+.sonar
