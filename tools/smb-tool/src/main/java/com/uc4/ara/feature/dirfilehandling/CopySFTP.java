@@ -47,8 +47,6 @@ public class CopySFTP extends AbstractCopy {
 
 		File localFile = new File(to);
 
-
-
 		try {
 			createParentDir(localFile);
 
@@ -142,7 +140,6 @@ public class CopySFTP extends AbstractCopy {
 		}
 	}
 
-
 	private void singleFileRetrieve(SftpWrapper sftpWrapper, String from, File f) throws IOException, SftpException {
 
 		if(f.exists()){
@@ -194,7 +191,6 @@ public class CopySFTP extends AbstractCopy {
 		}
 		return listFiles;
 	}
-
 
 	@Override
 	public int store() throws Exception {
@@ -293,7 +289,5 @@ public class CopySFTP extends AbstractCopy {
 		sftpWrapper.writeFile(localFile.getAbsolutePath(), to);
 
 	}
-
-
 
 }

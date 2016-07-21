@@ -52,12 +52,9 @@ import com.uc4.ara.feature.FeatureUtil;
 import com.uc4.ara.feature.globalcodes.ErrorCodes;
 import com.uc4.ara.feature.utils.FileUtil;
 
-
 public class CopyHTTP extends AbstractCopy {
 
-
 	private final boolean secure;
-
 
 	public CopyHTTP(String host, int port, String username, String password,
 			String from, String to, boolean overwrite, long timeout,
@@ -114,7 +111,6 @@ public class CopyHTTP extends AbstractCopy {
 			}
 		}
 
-
 		HttpGet httpGet = new HttpGet(from);
 
 		HttpResponse response;
@@ -148,7 +144,6 @@ public class CopyHTTP extends AbstractCopy {
 		if(localFile.isDirectory())
 			localFile = new File(localFile, path.substring(path.lastIndexOf("/"), path.length()));
 
-
 		if(localFile.exists())
 			if(overwrite){
 				FeatureUtil.logMsg("'" + localFile.getAbsolutePath() + "' already exists!. Deleting ...");
@@ -158,7 +153,6 @@ public class CopyHTTP extends AbstractCopy {
 				FeatureUtil.logMsg(localFile.getAbsolutePath() + " already exists and overwrite is set to NO. Aborting ...");
 				return ERROR_CODE_FILE_NOT_FOUND;
 			}
-
 
 		if(!pf.isDirectory() && !pf.mkdirs()){
 			FeatureUtil.logMsg("Local Directory " + pf.getAbsolutePath()  +
@@ -187,7 +181,6 @@ public class CopyHTTP extends AbstractCopy {
 			httpGet.releaseConnection();
 		}
 
-
 		return ErrorCodes.OK;
 	}
 
@@ -195,7 +188,6 @@ public class CopyHTTP extends AbstractCopy {
 	public int store() throws Exception {
 		throw new UnsupportedOperationException();
 	}
-
 
 	public class WebClientDevWrapper {
 

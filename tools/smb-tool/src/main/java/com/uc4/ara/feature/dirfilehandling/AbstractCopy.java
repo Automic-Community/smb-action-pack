@@ -2,7 +2,6 @@ package com.uc4.ara.feature.dirfilehandling;
 
 import java.io.File;
 
-
 public abstract class AbstractCopy {
 
     protected static final int ERROR_CODE_HOST_NOT_FOUND = 1;
@@ -77,8 +76,5 @@ public abstract class AbstractCopy {
 			super(message);
 		}
 	}
-
-
-
 
 }

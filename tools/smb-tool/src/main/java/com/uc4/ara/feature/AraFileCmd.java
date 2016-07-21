@@ -22,7 +22,6 @@ import com.uc4.ara.feature.utils.CommandLineWrapper;
 import com.uc4.ara.feature.utils.Maxim;
 import com.uc4.ara.util.Logger;
 
-
 /**
  * Command line tool for ARA Deployment Management features
  * 
@@ -99,7 +98,6 @@ public class AraFileCmd {
 						
 						// handle password decryption
 						params = handlePasswordDecryption(params);
-						
 						
 						// check the parameters
 						int ret = instance.checkParams(params);

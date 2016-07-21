@@ -14,7 +14,6 @@ import java.util.Set;
 import com.uc4.ara.feature.FeatureUtil;
 import com.uc4.ara.feature.FeatureUtil.MsgTypes;
 
-
 public class CmdLineParser {
 
     /**
@@ -205,8 +204,6 @@ public class CmdLineParser {
         private final boolean wantsValue;
         private final boolean required;
 
-
-
         /**
          * An option that expects a boolean value
          */
@@ -313,7 +310,6 @@ public class CmdLineParser {
                 return arg;
             }
         }
-
 
         /**
          * An option that expects a password value
@@ -449,7 +445,6 @@ public class CmdLineParser {
         return getOptionValue(o, null);
     }
 
-
     /**
      * @return the parsed value of the given Option, or the given default 'def'
      * if the option was not set
@@ -479,7 +474,6 @@ public class CmdLineParser {
         }
     }
 
-
     /**
      * @return A Collection giving the parsed values of all the occurrences of
      * the given Option, or an empty Collection if the option was not set.
@@ -498,7 +492,6 @@ public class CmdLineParser {
             }
         }
     }
-
 
     /**
      * @return the non-option arguments
@@ -542,7 +535,6 @@ public class CmdLineParser {
                     curArg = curArg.substring(0,equalsPos);
                 }
 
-
                 Option<?> opt = this.options.get(curArg);
                 if ( opt == null ) {
                     throw new UnknownOptionException(curArg);
@@ -576,7 +568,6 @@ public class CmdLineParser {
         remainingArgs = otherArgs.toArray(remainingArgs);
     }
 
-
     private <T> void addValue(Option<T> opt, String valueArg, Locale locale)
             throws IllegalOptionValueException {
 
@@ -596,7 +587,6 @@ public class CmdLineParser {
 
         v.add(value);
     }
-
 
     public <T> Option<T> addHelp(Option<T> option, String helpString) {
         if(option.isRequired())
@@ -694,5 +684,4 @@ public class CmdLineParser {
     String examples;
     String description;
 }
-
 

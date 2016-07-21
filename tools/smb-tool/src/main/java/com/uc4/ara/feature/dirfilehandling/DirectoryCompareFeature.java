@@ -31,7 +31,6 @@ int errorCode = ErrorCodes.OK;
 				
 				HashMap<String, String> filesAndStates = determineFileStatus(baseFiles, compareFiles);
 				
-				
 				for(String file : filesAndStates.keySet()) {
 					String state = filesAndStates.get(file);
 					
