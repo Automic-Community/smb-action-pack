@@ -27,6 +27,7 @@ import com.uc4.ara.util.Logger;
  */
 public class PutFiles extends AbstractPublicFeature {
 
+
     protected CmdLineParser.Option<String> protocol;
     protected CmdLineParser.Option<String> host;
     protected CmdLineParser.Option<String> port;
@@ -104,6 +105,7 @@ public class PutFiles extends AbstractPublicFeature {
 
     }
 
+
     /* (non-Javadoc)
      * @see com.uc4.ara.feature.IFeature#run(java.lang.String[])
      */
@@ -174,6 +176,7 @@ public class PutFiles extends AbstractPublicFeature {
         if(protocolValue.equalsIgnoreCase("SMB"))
             smbDomainNameValue = parser.getOptionValue(smbDomainName);
 
+
         int errorCode = ErrorCodes.OK;
         AbstractCopy abstractCopy = null;
 
@@ -214,5 +217,6 @@ public class PutFiles extends AbstractPublicFeature {
         errorCode = abstractCopy.store();
         return errorCode;
     }
+
 
 }

@@ -50,6 +50,7 @@ public class ScpWrapper {
 	 */
 	private String remotePasswd = "";
 
+
 	private String certificate = "";
 	/**
 	 * The session to the remote machine. Each session supports several
@@ -135,6 +136,8 @@ public class ScpWrapper {
 	public void setRemotePort(int port) {
 		this.remotePort = port;
 	}
+
+
 
 	/**
 	 * Gets the remote passwd.
@@ -223,6 +226,7 @@ public class ScpWrapper {
 		session = null;
 	}
 
+
 	/**
 	 * Reads a file from a remote machine and copies it to a file on the local
 	 * machine.
@@ -242,6 +246,7 @@ public class ScpWrapper {
 			throw new ScpException(e.getLocalizedMessage());
 		}
 	}
+
 
 	/**
 	 * Reads a remote file and copies it to the local machine.
@@ -470,6 +475,7 @@ public class ScpWrapper {
 				}
 			}
 
+
 			// send '\0'
 			buf[0] = 0;
 			out.write(buf, 0, 1);
@@ -514,6 +520,8 @@ public class ScpWrapper {
 		channel.disconnect();
 	}
 
+
+
 	/**
 	 * Writes a file to the remote machine by reading it from the local machine.
 	 *
@@ -539,6 +547,7 @@ public class ScpWrapper {
 			throw new ScpException(e.getLocalizedMessage());
 		}
 	}
+
 
 	/**
 	 * Writes a file to the remote machine by reading the file contents from the
@@ -665,6 +674,7 @@ public class ScpWrapper {
 		// throw new ScpException("Writing local file '" + localFile
 		// + "' to '" + remoteHost + ":" + remoteFile + "' failed");
 	}
+
 
 	/**
 	 * Removes a file from the remote machine.
@@ -912,6 +922,7 @@ public class ScpWrapper {
 			throw new ScpException(e.getLocalizedMessage());
 		}
 	}
+
 
 	/**
 	 * List contents of a directory of the remote machine.
@@ -1192,6 +1203,7 @@ public class ScpWrapper {
 		return false;
 	}
 
+
 	/**
 	 * Execute a command on the remote machine. The remote machine must support
 	 * the desired command.
@@ -1251,6 +1263,7 @@ public class ScpWrapper {
 			sb.append(s).append("\n");
 		}
 
+
 		errReader.close();
 		inReader.close();
 		channel.disconnect();
@@ -1260,6 +1273,7 @@ public class ScpWrapper {
 
 		return sb.toString();
 	}
+
 
 	/**
 	 * Check ack.

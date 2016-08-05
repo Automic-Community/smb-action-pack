@@ -52,6 +52,7 @@ public class SftpWrapper {
 	 */
 	private String remotePasswd = "";
 
+
 	private String certificate = "";
 	/**
 	 * The session to the remote machine. Each session supports several
@@ -138,6 +139,8 @@ public class SftpWrapper {
 	public void setRemotePort(int port) {
 		this.remotePort = port;
 	}
+
+
 
 	/**
 	 * Gets the remote passwd.
@@ -253,6 +256,7 @@ public class SftpWrapper {
 		this.channelSftp = channelSftp;
 	}
 
+
 	/**
 	 * @param remoteFile
 	 * @param localFile
@@ -287,9 +291,12 @@ public class SftpWrapper {
 		channelSftp.rm(remoteFile);
 	}
 
+
+
 	public void removeDir(String remoteDir) throws SftpException {
 		channelSftp.rmdir(remoteDir);
 	}
+
 
 	public List<String> listFile(String remoteDir) throws SftpException {
 		List entries = new Vector<LsEntry>();

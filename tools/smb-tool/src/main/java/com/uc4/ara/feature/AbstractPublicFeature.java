@@ -9,6 +9,7 @@ import com.uc4.ara.feature.globalcodes.ErrorCodes;
 import com.uc4.ara.feature.utils.CmdLineParser;
 import com.uc4.ara.util.Logger;
 
+
 /**
  * @author extsts
  *
@@ -38,6 +39,7 @@ public abstract class AbstractPublicFeature implements IFeature {
         startTime = Calendar.getInstance();
         Logger.logHeader(this.getClass().getSimpleName(), startTime);
 
+
         //parse arguments - if parameter ar not valid an excption is thrown
         parser.parse(args);
         parser.printParams();
@@ -66,6 +68,7 @@ public abstract class AbstractPublicFeature implements IFeature {
     {
         parser.printDescription(isOneliner);
     }
+
 
     private String getPackageNameFromClass()
     {

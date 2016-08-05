@@ -16,6 +16,7 @@
  */
 package com.uc4.ara.feature.utils;
 
+
 /**
  * The Class ScpException is used by the {@link ScpWrapper} to throw a
  * non-recoverable exception.

@@ -224,6 +224,8 @@ public class FeatureUtil {
             traceFile.println(msg);
     }
 
+
+
     /**
      * Log msg.
      * 
@@ -592,6 +594,7 @@ public class FeatureUtil {
         return false;
     }
 
+
     private static Set<String> getPackageNamesInPackage(String packageName) {
         Set<String> packageNames = new HashSet<String>();
         String packageNameSlashed = packageName.replace(".", "/");
@@ -636,6 +639,7 @@ public class FeatureUtil {
         }
         return packageNames;
     }
+
 
     private static Set<Class> getClassesInPackage(String packageName, String subPackageName) {
         Set<Class> classes = new HashSet<Class>();

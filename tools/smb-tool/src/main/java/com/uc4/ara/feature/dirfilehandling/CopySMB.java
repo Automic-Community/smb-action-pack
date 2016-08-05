@@ -61,6 +61,7 @@ public class CopySMB extends AbstractCopy {
 		
 		ntlmPasswordAuthentication = new NtlmPasswordAuthentication(smbDomainName, username, password);
 
+				
 		try {
 			File localFile = new File(to);
 			createParentDir(localFile);
@@ -239,6 +240,7 @@ public class CopySMB extends AbstractCopy {
 
 		return listFiles;
 	}
+
 
 	@Override
 	public int store() throws Exception {

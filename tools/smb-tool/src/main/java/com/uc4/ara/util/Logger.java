@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.uc4.ara.feature.FeatureUtil;
 
+
 public class Logger {
 
 	public final static String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
@@ -70,6 +71,7 @@ public class Logger {
 		FeatureUtil.logMsg(e);
 		
 	}
+	
 	
 	public static void log(String message, String logLevel) {
 		FeatureUtil.logMsg(message);

@@ -316,6 +316,7 @@ public class CopyFTP extends AbstractCopy {
 		sslContext = SSLContext.getInstance("SSL");
 		sslContext.init(null, trustManager, new SecureRandom());
 
+
 		SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 		FTPClient client = new FTPClient();
 		client.setSSLSocketFactory(sslSocketFactory);
@@ -396,6 +397,7 @@ public class CopyFTP extends AbstractCopy {
 
 		return errorCode;
 	}
+
 
 	private void deepStore(FTPClient ftpClient, File localFile, String to)
 			throws IOException, IllegalStateException, FTPIllegalReplyException, FTPException, FTPDataTransferException, FTPAbortedException, FTPListParseException {
