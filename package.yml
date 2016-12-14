@@ -2,8 +2,16 @@ name: PCK.AUTOMIC_SMB
 source: ae
 binaries:
 - object: RESOURCES/LIBS/PCK.AUTOMIC_SMB.PRV.STORE
-  resources: 
+  resources:
   - name: SMBTOOL.JAR
     type: BINARY
     path: tools/smb-tool/target/smb-tool.jar
     version: 1.0.0
+  - name: JCIFS.JAR
+    type: BINARY
+    path: tools/jcifs/jcifs.jar
+    version: 1.3.17
+  - name: JCIFS.SOURCE.JAR
+    type: BINARY
+    path: tools/jcifs/jcifs-1.3.17-sources.jar
+    version: 1.3.17

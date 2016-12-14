@@ -114,7 +114,8 @@
 :SET &UC4RB_SMB_TGT_FILES_DIR# = &UC4RB_CONVERTED_STRING#
 
 :JCL_CONCAT_CHAR "?"
-java -jar "&$AGENT_RESOURCES_CLIENT#smb-tool.jar" dirfilehandling GetFiles -prc "SMB" ?
+java -cp "&$AGENT_RESOURCES_CLIENT#smb-tool.jar;&$AGENT_RESOURCES_CLIENT#jcifs.jar" com.uc4.ara.feature.AraFileCmd ?
+dirfilehandling GetFiles -prc "SMB" ?
 -h &UC4RB_SMB_HOST# -p &UC4RB_SMB_PORT# -u "&UC4RB_SMB_USER#" -pwd "&UC4RB_SMB_PWD#" ?
 -src &UC4RB_SMB_SRC_FILES_DIR# -tgt &UC4RB_SMB_TGT_FILES_DIR# -o &UC4RB_SMB_TGT_OVERWRITE# ?
 -to &UC4RB_SMB_CONNECT_TIMEOUT# -prv "&UC4RB_SMB_PRESERVE_ATT#" ?
@@ -135,7 +136,8 @@ java -jar "&$AGENT_RESOURCES_CLIENT#smb-tool.jar" dirfilehandling GetFiles -prc 
 :SET &UC4RB_SMB_TGT_FILES_DIR# = &UC4RB_CONVERTED_STRING#
 
 :JCL_CONCAT_CHAR "?"
-java -jar "&$AGENT_RESOURCES_CLIENT#smb-tool.jar" dirfilehandling GetFiles -prc "SMB" ?
+java -cp "&$AGENT_RESOURCES_CLIENT#smb-tool.jar:&$AGENT_RESOURCES_CLIENT#jcifs.jar" com.uc4.ara.feature.AraFileCmd ?
+dirfilehandling GetFiles -prc "SMB" ?
 -h &UC4RB_SMB_HOST# -p &UC4RB_SMB_PORT# -u "&UC4RB_SMB_USER#" -pwd "&UC4RB_SMB_PWD#" ?
 -src &UC4RB_SMB_SRC_FILES_DIR# -tgt &UC4RB_SMB_TGT_FILES_DIR# -o &UC4RB_SMB_TGT_OVERWRITE# ?
 -to &UC4RB_SMB_CONNECT_TIMEOUT# -prv "&UC4RB_SMB_PRESERVE_ATT#" ?
