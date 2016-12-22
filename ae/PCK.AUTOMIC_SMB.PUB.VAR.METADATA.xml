@@ -33,7 +33,7 @@
 <row Name="Name" Value="PCK.AUTOMIC_SMB" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="Package Format Version" Value="0.2.0" Value1="" Value2="" Value3="" Value4=""/>
 <row Name="Title" Value="Automic SMB" Value1="" Value2="" Value3="" Value4=""/>
-<row Name="Version" Value="1.1.1" Value1="" Value2="" Value3="" Value4=""/>
+<row Name="Version" Value="1.1.2" Value1="" Value2="" Value3="" Value4=""/>
 </Variables>
 </VARA>
 <DOCU_Docu state="1" type="text">
