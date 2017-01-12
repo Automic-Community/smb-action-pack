@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup       Suite Setup
-Force Tags        smb copy    win    unix
+Force Tags        smb copy    win    unix    SMOKE_TEST
 Test Template     Export Template
 Resource          ../../resources/keywords.txt
 
