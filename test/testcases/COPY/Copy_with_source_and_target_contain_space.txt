@@ -4,19 +4,22 @@ Force Tags        smb copy    valid    win    unix
 Test Template     Copy Template
 Resource          ../../resources/keywords.txt
 
-*** Test Cases ***    Source                      Target
-source and target contain space should success
-                      ${/}source contain space    ${_WORKING_DIR}${/}target contain space
+*** Test Cases ***    Source                        SMB_Host          User             Password      Target
+source and target contain space should with win server success
+                      ${/}source%20contain space    VVNSATSTNDRD01    administrator    S3rv3r@Aut    ${_WORKING_DIR}${/}target%20contain space
+
+source and target contain space with linux server should success
+                      ${/}source%20contain space    VVNAPPSERVER02    ""               ""            ${_WORKING_DIR}${/}target%20contain space
 
 *** Keywords ***
 Copy Template
-    [Arguments]    ${source}    ${target}
+    [Arguments]    ${source}    ${smb_host}    ${user}    ${password}    ${target}
     Clean Up Directory    ${_WORKING_DIR}${/}target
     Init Action    ${ACTION_COPY}
-    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    Action Set    ${PRT_SMB_HOST}    ${smb_host}
     Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source}
-    Action Set    ${PRT_SMB_USER}    administrator
-    Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
+    Action Set    ${PRT_SMB_USER}    ${user}
+    Action Set    ${PRT_SMB_PWD}    ${password}
     Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
     Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${target}
     Action Set    ${PRT_SMB_TGT_OVERWRITE}    YES
