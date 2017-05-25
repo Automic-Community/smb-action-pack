@@ -1,0 +1,29 @@
+*** Settings ***
+Suite Setup       Suite Setup
+Force Tags        smb copy    valid    win    unix
+Test Template     Copy Template
+Resource          ../../resources/keywords.txt
+
+*** Test Cases ***    Source                      Target
+source and target contain space should success
+                      ${/}source contain space    ${_WORKING_DIR}${/}target contain space
+
+*** Keywords ***
+Copy Template
+    [Arguments]    ${source}    ${target}
+    Clean Up Directory    ${_WORKING_DIR}${/}target
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source}
+    Action Set    ${PRT_SMB_USER}    administrator
+    Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${target}
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    YES
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Action Report Should Be Found
+    Action Return Code Should Be    0
+    Action Return Status Should Be    ${EndedOK}
+    Action Report Should Contain    START AT
+    Action Report Should Contain    ENDED AT

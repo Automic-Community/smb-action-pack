@@ -59,12 +59,12 @@
 <UC4RB_SMB_DOMAIN_NAMEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_DOMAIN_NAME#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_HOSTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_HOST#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_PORTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PORT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">139</UC4RB_SMB_PORTs.00>
-<UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_PRESERVE_ATTs.00>
 <UC4RB_SMB_PWDs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PWD#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">--10</UC4RB_SMB_PWDs.00>
-<UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_RECURSIVE_GETs.00>
 <UC4RB_SMB_SRC_FILES_DIRs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_SRC_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_TGT_FILES_DIRs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
-<UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_TGT_OVERWRITEs.00>
 <UC4RB_SMB_USERs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_USER#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 </PRPTBOX>
 </PROMPTSET>
@@ -124,12 +124,12 @@
 <UC4RB_SMB_DOMAIN_NAMEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_DOMAIN_NAME#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_HOSTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_HOST#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_PORTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PORT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">139</UC4RB_SMB_PORTs.00>
-<UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_PRESERVE_ATTs.00>
 <UC4RB_SMB_PWDs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PWD#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">--10</UC4RB_SMB_PWDs.00>
-<UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_RECURSIVE_GETs.00>
 <UC4RB_SMB_SRC_FILES_DIRs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_SRC_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_TGT_FILES_DIRs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
-<UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_TGT_OVERWRITEs.00>
 <UC4RB_SMB_USERs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_USER#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 </PRPTBOX>
 </PROMPTSET>
@@ -175,12 +175,12 @@
 <UC4RB_SMB_DOMAIN_NAMEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_DOMAIN_NAME#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_HOSTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_HOST#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_PORTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PORT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">139</UC4RB_SMB_PORTs.00>
-<UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_PRESERVE_ATTs.00>
 <UC4RB_SMB_PWDs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PWD#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">--10</UC4RB_SMB_PWDs.00>
-<UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_RECURSIVE_GETs.00>
 <UC4RB_SMB_SRC_FILES_DIRs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_SRC_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 <UC4RB_SMB_TGT_FILES_DIRs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
-<UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
+<UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">YES</UC4RB_SMB_TGT_OVERWRITEs.00>
 <UC4RB_SMB_USERs.00 ReadFromTable="OPUD" altview="0" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_USER#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY"/>
 </PRPTBOX>
 </PROMPTSET>
@@ -257,11 +257,11 @@
 <UC4RB_SMB_DOMAIN_NAMEs.00 altview="0" haslist="0"/>
 <UC4RB_SMB_USERs.00 altview="0" haslist="0"/>
 <UC4RB_SMB_PWDs.00 altview="0" haslist="0">--10</UC4RB_SMB_PWDs.00>
-<UC4RB_SMB_RECURSIVE_GETs.00 altview="0" haslist="0"/>
+<UC4RB_SMB_RECURSIVE_GETs.00 altview="0" haslist="0">YES</UC4RB_SMB_RECURSIVE_GETs.00>
 <UC4RB_SMB_CONNECT_TIMEOUTs.00 altview="0" haslist="0">5000</UC4RB_SMB_CONNECT_TIMEOUTs.00>
 <UC4RB_SMB_TGT_FILES_DIRs.00 altview="0" haslist="0"/>
-<UC4RB_SMB_TGT_OVERWRITEs.00 altview="0" haslist="0"/>
-<UC4RB_SMB_PRESERVE_ATTs.00 altview="0" haslist="0"/>
+<UC4RB_SMB_TGT_OVERWRITEs.00 altview="0" haslist="0">YES</UC4RB_SMB_TGT_OVERWRITEs.00>
+<UC4RB_SMB_PRESERVE_ATTs.00 altview="0" haslist="0">YES</UC4RB_SMB_PRESERVE_ATTs.00>
 </PRPTBOX>
 </PROMPTSET>
 </node>
