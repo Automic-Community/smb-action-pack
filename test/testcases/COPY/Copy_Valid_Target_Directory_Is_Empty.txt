@@ -7,16 +7,8 @@ Resource          ../../resources/keywords.txt
 *** Test Cases ***    Source                                                                            User             Password       Recursive    Target
 Admin User            source${/}Test1.ini                                                               administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
 
-Anonymous User From Shared Folder For Everyone
-                      source${/}Test1.ini                                                               \                \              YES          ${_WORKING_DIR}${/}target
-
-Rename At Target      source${/}Test1.ini                                                               \                \              YES          ${_WORKING_DIR}${/}target${/}New_Notes.Zip
-
 Access With Another User
                       source${/}Test1.ini                                                               tester           ventum2011@    YES          ${_WORKING_DIR}${/}target
-
-Access With Guest User
-                      source${/}Test1.ini                                                               Guest            \              YES          ${_WORKING_DIR}${/}target
 
 From Empty Source     source_empty                                                                      administrator    S3rv3r@Aut     YES          ${_WORKING_DIR}${/}target
 
