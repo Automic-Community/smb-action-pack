@@ -44,5 +44,5 @@ Copy Template
     #Action Report Should Contain    PARAMETER VALIDATION START
     #Action Report Should Contain    EXECUTION START
     Action Report Should Contain    ENDED AT
-    Action Report Should Contain   Copying
+    Run Keyword If   '${source}' != 'source_empty'  Action Report Should Contain   Copying
     #Action Report Should Contain    RET-CODE
