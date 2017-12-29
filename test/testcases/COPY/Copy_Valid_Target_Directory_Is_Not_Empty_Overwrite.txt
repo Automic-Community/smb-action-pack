@@ -47,4 +47,6 @@ Export Template
     #Action Report Should Contain    PARAMETER VALIDATION START
     #Action Report Should Contain    EXECUTION START
     Action Report Should Contain    ENDED AT
+    Run Keyword If   ${overwrite2} == NO    Action Report Should Contain   ( overwrite is NO ). Skipping ...
+    Run Keyword If   ${overwrite2} == YES    Action Report Should Contain   Copying
     #Action Report Should Contain    RET-CODE
