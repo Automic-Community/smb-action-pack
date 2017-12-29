@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import jcifs.smb.NtlmPasswordAuthentication;
@@ -92,10 +93,10 @@ public class CopySMB extends AbstractCopy {
 			}
 
 		} catch (SmbException e){
-			FeatureUtil.logMsg(e.getMessage() + ". Please check the host, port, username, password or domain name again. Aborting ...");
+			FeatureUtil.logMsg(e.getMessage() + " Please check the host, port, username, password or domain name again. Aborting ...");
 			return ErrorCodes.EXCEPTION;
 		} catch (UserException e) {
-			FeatureUtil.logMsg(e.getMessage() + ". Aborting ...");
+			FeatureUtil.logMsg(e.getMessage() + " Aborting ...");
 			return ErrorCodes.ERROR;
 		}
 
@@ -203,39 +204,18 @@ public class CopySMB extends AbstractCopy {
 
 		String[] dirs = path.split("/+");
 		List<SmbFile> listFiles = new ArrayList<SmbFile>();
-		int count = 0;
+				
 		for (String dir : dirs){
-			count ++;
 			if(!dir.equals("")){
-				if( !dir.contains("*")  && !dir.contains("?") ){
-					if(count != dirs.length){
-						smbFrom = new SmbFile(smbFrom.getPath() + dir + "/", ntlmPasswordAuthentication);
-						if(!smbFrom.isDirectory()) break;
-					}else {
-						SmbFile sF = new SmbFile(smbFrom.getPath() + dir, ntlmPasswordAuthentication);
-						if(sF.isFile())
-							listFiles.add(sF);
-						else if(sF.isDirectory())
-							listFiles.add(new SmbFile(smbFrom.getPath() + dir + "/", ntlmPasswordAuthentication));
-					}
-				} else {
-					try {
-						for (SmbFile file : smbFrom.listFiles()) {
+				try {
 
-							if(file.getName().matches(FileUtil.convertWildCard(dir) + "/?")) {
-								if(count == dirs.length)
-									listFiles.add(file);
-								else if(file.isDirectory())
-									listFiles.addAll(getFilesWildCard(file, path.substring(dir.length() + 1) , ntlmPasswordAuthentication));
-							}
-						}
-					} catch (SmbException e){
-						FeatureUtil.logMsg("Warning! Can not list directories at path '" + smbFrom.getPath() + "'. Message: " + e.getMessage());
-					}
-					break;
+					listFiles.addAll(Arrays.asList(smbFrom.listFiles(dir)));
+					
+				} catch (SmbException e){
+					FeatureUtil.logMsg("Warning! Can not list directories at path '" + smbFrom.getPath() + "'. Message: " + e.getMessage());
 				}
+				break;
 			}
-
 		}
 
 		return listFiles;
@@ -289,7 +269,7 @@ public class CopySMB extends AbstractCopy {
 			}
 
 		} catch (SmbException e){
-			FeatureUtil.logMsg(e.getMessage() + ". Please check the host, port, username or password or domain name again. Aborting ...");
+			FeatureUtil.logMsg(e.getMessage() + " Please check the host, port, username or password or domain name again. Aborting ...");
 			return ErrorCodes.EXCEPTION;
 		}
 

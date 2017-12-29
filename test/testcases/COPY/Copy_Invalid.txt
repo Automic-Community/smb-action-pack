@@ -21,6 +21,15 @@ Anonymous User From A Shared Folder Not Allow Anonymous
 User Does Not Have Permission To Access Shared Folder
                       VVNSATSTNDRD01           \             source_test          tester           ventum2011@    999            ${AccessIsDenied}
 
+Access With Guest User
+                      VVNSATSTNDRD01           139           source${/}Test1.ini  Guest            \              999            ${AccessIsDenied}
+
+Anonymous User From Shared Folder For Everyone 
+                      VVNSATSTNDRD01           139           source${/}Test1.ini  \                \              999            ${AccessIsDenied}
+
+Rename At Target      VVNSATSTNDRD01           139           source${/}Test1.ini  \                \              999            ${AccessIsDenied}                      
+                      
+
 *** Keywords ***
 Copy Template
     [Arguments]    ${host}    ${port}    ${source}    ${user}    ${password}    ${returnCode}

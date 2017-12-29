@@ -30,3 +30,4 @@ Copy Template
     Action Return Status Should Be    ${EndedOK}
     Action Report Should Contain    START AT
     Action Report Should Contain    ENDED AT
+    Action Report Should Contain   Copying

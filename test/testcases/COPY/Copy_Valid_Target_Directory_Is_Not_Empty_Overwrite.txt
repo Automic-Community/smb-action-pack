@@ -4,19 +4,22 @@ Force Tags        smb copy    win    unix    SMOKE_TEST
 Test Template     Export Template
 Resource          ../../resources/keywords.txt
 
-*** Test Cases ***    Overwrite1    Overwrite2    Message
-Copy Overwrite No     NO            NO            ${AlreadyExistsSkipping}
+*** Test Cases ***    Overwrite1    Overwrite2     Source1                     Source2                   Message
+Copy Overwrite No     YES           NO             source                      source                    ${AlreadyExistsSkipping}
 
-Copy Overwrite Yes    YES           YES           ${EMPTY}
+Copy Overwrite Yes    YES           YES            source   				   source                    ${EMPTY}
+
+Copy Overwrite Skipping and Copying    
+                      YES           NO             source${/}Test1.ini         source${/}*               ${EMPTY}
 
 *** Keywords ***
 Export Template
-    [Arguments]    ${overwrite1}    ${overwrite2}    ${message}
+    [Arguments]    ${overwrite1}    ${overwrite2}    ${source1}    ${source2}    ${message}
     Clean Up Directory    ${_WORKING_DIR}${/}target
     Init Action    ${ACTION_COPY}
     Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
     #Action Set    ${PRT_SMB_PORT}    139
-    Action Set    ${PRT_SMB_SRC_FILES_DIR}    source
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source1}
     #Action Set    ${PRT_SMB_DOMAIN_NAME}
     Action Set    ${PRT_SMB_USER}    administrator
     Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
@@ -29,7 +32,7 @@ Export Template
     Init Action    ${ACTION_COPY}
     Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
     #Action Set    ${PRT_SMB_PORT}    139
-    Action Set    ${PRT_SMB_SRC_FILES_DIR}    source
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source2}
     #Action Set    ${PRT_SMB_DOMAIN_NAME}
     Action Set    ${PRT_SMB_USER}    administrator
     Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
@@ -47,4 +50,10 @@ Export Template
     #Action Report Should Contain    PARAMETER VALIDATION START
     #Action Report Should Contain    EXECUTION START
     Action Report Should Contain    ENDED AT
+    Run Keyword If   '${overwrite2}' == 'NO'    Action Report Should Contain   ( overwrite is NO ). Skipping ...
+    Run Keyword If   '${overwrite2}' == 'YES'    Action Report Should Contain   Copying
+    Run Keyword If   '${overwrite2}' == 'YES' and '${source2}' == 'source'    Action Report Should Contain   Copying
+    Run Keyword If   '${overwrite2}' == 'YES' and '${source2}' == 'source${/}*'  Run Keywords
+	...   Action Report Should Contain   Copying
+    ...   AND   Action Report Should Contain   ( overwrite is NO ). Skipping ...
     #Action Report Should Contain    RET-CODE
