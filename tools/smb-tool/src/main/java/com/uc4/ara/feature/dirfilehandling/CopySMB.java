@@ -1,5 +1,7 @@
 package com.uc4.ara.feature.dirfilehandling;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,17 +13,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
-import jcifs.smb.SmbFileInputStream;
-import jcifs.smb.SmbFileOutputStream;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.uc4.ara.feature.FeatureUtil;
 import com.uc4.ara.feature.globalcodes.ErrorCodes;
 import com.uc4.ara.feature.utils.FileUtil;
+
+import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.SmbException;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileInputStream;
+import jcifs.smb.SmbFileOutputStream;
 
 public class CopySMB extends AbstractCopy {
 
@@ -60,6 +62,7 @@ public class CopySMB extends AbstractCopy {
 		    password = null;
 		}
 		
+		jcifs.Config.setProperty("jcifs.resolveOrder", "DNS");
 		ntlmPasswordAuthentication = new NtlmPasswordAuthentication(smbDomainName, username, password);
 
 				
@@ -162,14 +165,14 @@ public class CopySMB extends AbstractCopy {
 				return;
 			}
 		}
-
-		InputStream is = new SmbFileInputStream(file);
-		FileOutputStream fos = new FileOutputStream(f);
-
+		
+		InputStream is = new BufferedInputStream(new SmbFileInputStream(file));
+		OutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
+		
 		FeatureUtil.logMsg("Copying '" + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
-
 		try {
-			byte[] content = new byte[8 * 1024];
+			int bufferSize = (int) (file.length() < MAX_BUFFER_SIZE ? ((file.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
+			byte[] content = new byte[bufferSize];
 			int read;
 			while ((read = is.read(content)) > 0) {
 				fos.write(content, 0, read);
@@ -315,11 +318,13 @@ public class CopySMB extends AbstractCopy {
 		}
 
 		FeatureUtil.logMsg("Copying '" + localFile.getCanonicalPath() + "' => '" + toFile.getPath() + "'");
-		InputStream is = new FileInputStream(localFile);
-		OutputStream fos = new SmbFileOutputStream(toFile);
-
+		
+		InputStream is = new BufferedInputStream(new FileInputStream(localFile));
+		OutputStream fos = new BufferedOutputStream(new SmbFileOutputStream(toFile));
+		
 		try {
-			byte[] content = new byte[8 * 1024];
+			int bufferSize = (int) (localFile.length() < MAX_BUFFER_SIZE ? ((localFile.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
+			byte[] content = new byte[bufferSize];
 			int read;
 			while ((read = is.read(content)) > 0) {
 				fos.write(content, 0, read);
