@@ -18,7 +18,7 @@ binaries:
 - object: RESOURCES/PCK.AUTOMIC_SMB.PRV.CUSTOM_TYPES
   timestamp: disabled
   resources:
-   - name: ARTIFACTSOURCE#SMB
-     type: TEXT
-     path: ara/types/artifact/Artifact_SMB_1.0.0.xml
-     version: 1.0.0
+  - name: ARTIFACTSOURCE#SMB
+    type: TEXT
+    path: ara/types/artifact/Artifact_SMB_1.0.0.xml
+    version: 1.0.0
