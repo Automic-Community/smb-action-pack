@@ -265,12 +265,12 @@
         <entry name="resetable">1</entry>
       <entry name="initvalue"/>
          </properties>
-    </text><dynradiogroup alt="1" enabled="1" fill="b" focus="" id="UC4RB_SMB_TGT_OVERWRITEs.00" nl="1" text="Overwirte Files" tooltip="Overwrite local files/directory if exist" required="0">
+    </text><dynradiogroup alt="1" enabled="1" fill="b" focus="" id="UC4RB_SMB_TGT_OVERWRITEs.00" nl="1" text="Overwrite Files" tooltip="Overwrite local files/directory if exist" required="0">
       <properties>
         <entry listparam="C,N" name="reference" reftype="STATIC">PCK.ITPA_SHARED.PRV.VARA.YES_NO</entry>
         <entry name="xmlkey"/>
         <entry name="xmlpath"/>
-        <entry name="text">Overwirte Files</entry>
+        <entry name="text">Overwrite Files</entry>
         <entry name="quotes"/>
         <entry name="id">UC4RB_SMB_TGT_OVERWRITEs.00</entry>
         <entry name="enabled">0</entry>
