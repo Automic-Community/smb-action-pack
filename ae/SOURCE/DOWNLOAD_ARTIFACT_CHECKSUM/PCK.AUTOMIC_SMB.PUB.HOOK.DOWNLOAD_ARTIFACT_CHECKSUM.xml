@@ -22,10 +22,10 @@
 <AutoDeactNo>0</AutoDeactNo>
 <AutoDeact1ErrorFree>0</AutoDeact1ErrorFree>
 <AutoDeactErrorFree>1</AutoDeactErrorFree>
-<DeactWhen/>
+<DeactWhen>ANY_OK</DeactWhen>
 <AutoDeactAlways>0</AutoDeactAlways>
 <DeactDelay>0</DeactDelay>
-<ActAtRun>0</ActAtRun>
+<ActAtRun>1</ActAtRun>
 <UC4Priority>0</UC4Priority>
 <PassPriority>0</PassPriority>
 <MaxParallel2>0</MaxParallel2>
@@ -86,7 +86,9 @@
 </node>
 <node content="1" id="PVALUE" name="Parent Variables" parent="" type="TASKVALUE">
 <VALUE state="2">
-<Values/>
+<Values>
+<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_CHECKSUM_PATH#" Value="EXT:@artifact/custom/checksum_path"/>
+</Values>
 <Mode>0</Mode>
 </VALUE>
 </node>
@@ -102,7 +104,7 @@
 <UC4RB_SMB_PRESERVE_ATTs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PRESERVE_ATT#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">EXT:@artifact_source/custom/preserve_att</UC4RB_SMB_PRESERVE_ATTs.00>
 <UC4RB_SMB_PWDs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_PWD#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">EXT:@artifact_source/custom/password</UC4RB_SMB_PWDs.00>
 <UC4RB_SMB_RECURSIVE_GETs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_RECURSIVE_GET#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">EXT:@artifact_source/custom/recursive_download</UC4RB_SMB_RECURSIVE_GETs.00>
-<UC4RB_SMB_SRC_FILES_DIRs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_SRC_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">EXT:@artifact/custom/checksum_file_path</UC4RB_SMB_SRC_FILES_DIRs.00>
+<UC4RB_SMB_SRC_FILES_DIRs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_SRC_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">EXT:@artifact/custom/checksum_path</UC4RB_SMB_SRC_FILES_DIRs.00>
 <UC4RB_SMB_TGT_FILES_DIRs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_FILES_DIR#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">&amp;UC4RB_ARTIFACT_DIR#</UC4RB_SMB_TGT_FILES_DIRs.00>
 <UC4RB_SMB_TGT_OVERWRITEs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_TGT_OVERWRITE#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">&amp;UC4RB_OVERWRITE_FILES#</UC4RB_SMB_TGT_OVERWRITEs.00>
 <UC4RB_SMB_USERs.00 ReadFromTable="JPPV" altview="1" haslist="0" msginsert="" msgnr="" promptname="UC4RB_SMB_USER#" promptsetname="PCK.AUTOMIC_SMB.PRV.PROMPTSET.COPY">EXT:@artifact_source/custom/username</UC4RB_SMB_USERs.00>
@@ -193,7 +195,9 @@
 <dyntree>
 <node content="1" id="VALUE" name="Variables" parent="" type="VALUE">
 <VALUE state="1">
-<Values/>
+<Values>
+<row ERTUsage="0" Name="&amp;UC4RB_CHECKSUM_PATH#" Value="EXT:@artifact/custom/checksum_path"/>
+</Values>
 <Mode>0</Mode>
 </VALUE>
 </node>
@@ -216,7 +220,11 @@
 <FInclSubDirs>0</FInclSubDirs>
 </ROLLBACK>
 <SCRIPT mode="1" state="1">
-<MSCRI/>
+<MSCRI><![CDATA[:SET &MISSING_CHECKSUM_PATH# = STR_STARTS_WITH(&UC4RB_CHECKSUM_PATH#, "EXT:")
+:IF &MISSING_CHECKSUM_PATH# = "Y"
+:  PRINT "There is no checksum path defined in this artifact to download."
+:  STOP NOMSG, 50, "There is no checksum path defined in this artifact to download."
+:ENDIF]]></MSCRI>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
 <DOC/>
