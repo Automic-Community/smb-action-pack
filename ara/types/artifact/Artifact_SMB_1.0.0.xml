@@ -50,7 +50,7 @@
         <Property name="source_path" displayName="Source Path" mode="EDITABLE" type="SingleLineText">
           <Description>Remote file/directory to be downloaded</Description>
         </Property>
-		<Property name="checksum_file_path" displayName="Checksum file path" mode="EDITABLE" type="SingleLineText">
+		<Property name="checksum_file_path" displayName="Checksum path" mode="EDITABLE" type="SingleLineText">
           <Description>Remote artifact checksum file to be downloaded</Description>
         </Property>
 		<Property name="archive_type" displayName="Archive Type" mode="EDITABLE" type="SingleChoice">
