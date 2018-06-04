@@ -26,6 +26,8 @@ import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 
 public class CopySMB extends AbstractCopy {
+	
+	private static final String FILENAME_SPLITTER = "=::=";
 
 	public CopySMB(String host, int port, String username, String password,
 			String from, boolean recursive, String to, boolean overwrite, long timeout, boolean preserve, String smbDomainName) {
@@ -169,7 +171,7 @@ public class CopySMB extends AbstractCopy {
 		InputStream is = new BufferedInputStream(new SmbFileInputStream(file));
 		OutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
 		
-		FeatureUtil.logMsg("Copying '" + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
+		FeatureUtil.logMsg("Copying " + file.getName() + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
 			int bufferSize = (int) (file.length() < MAX_BUFFER_SIZE ? ((file.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
 			byte[] content = new byte[bufferSize];

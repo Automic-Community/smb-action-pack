@@ -44,7 +44,7 @@
     </Group>
   </Properties>
   <Description>Transfer artifact via windows shared files (SMB)</Description>
-  <ArtifactInstance>
+  <Artifact>
     <Properties>
       <Group name="source" displayName="Source">
         <Property name="source_path" displayName="Source Path" mode="EDITABLE" type="SingleLineText">
@@ -58,5 +58,5 @@
         </Property>
       </Group>	  
     </Properties>
-  </ArtifactInstance>
+  </Artifact>
 </ArtifactSourceType>
