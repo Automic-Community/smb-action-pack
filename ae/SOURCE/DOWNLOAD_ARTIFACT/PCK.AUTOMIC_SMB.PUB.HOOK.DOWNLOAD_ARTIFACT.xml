@@ -113,7 +113,8 @@
 <node content="1" id="PVALUE" name="Parent Variables" parent="" type="TASKVALUE">
 <VALUE state="2">
 <Values>
-<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#" Value="&amp;UC4RB_DOWNLOAD_CHECKSUM#"/>
+<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_CHECKSUM_PATH#" Value="EXT:@artifact/custom/checksum_path"/>
+<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#" Value="YES"/>
 <row ERTUsage="0" Mod="0" Name="&amp;UC4RB_SMB_VARA_NAME#" Value="&amp;UC4RB_ARTIFACT_VARA_NAME#"/>
 </Values>
 <Mode>0</Mode>
@@ -167,18 +168,18 @@
 <params>
 <param altview="0" name="XC_P01" type="V" value="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#"/>
 <param altview="0" name="XC_P02" type="V" value="="/>
-<param altview="0" name="XC_P03" type="V" value="YES"/>
+<param altview="0" name="XC_P03" type="V" value="NO"/>
 </params>
 <when active="1" id="USER DEFINED" once="0" type="W" uiinfo="">
-<action active="1" id="RUN TASK" once="1" type="A" uiinfo="">
-<params/>
-</action>
-</when>
-<else active="1" id="USER DEFINED" once="0" type="E" uiinfo="">
 <action active="1" id="SKIP TASK" once="1" type="A" uiinfo="">
 <params>
 <param altview="0" name="XC_P01" type="V" value="Download checksum is ignored"/>
 </params>
+</action>
+</when>
+<else active="1" id="USER DEFINED" once="0" type="E" uiinfo="">
+<action active="1" id="RUN TASK" once="1" type="A" uiinfo="">
+<params/>
 </action>
 </else>
 </condition>
@@ -201,7 +202,8 @@
 <node content="1" id="PVALUE" name="Parent Variables" parent="" type="TASKVALUE">
 <VALUE state="2">
 <Values>
-<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#" Value="&amp;UC4RB_DOWNLOAD_CHECKSUM#"/>
+<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_CHECKSUM_PATH#" Value="EXT:@artifact/custom/checksum_path"/>
+<row ERTUsage="0" Mod="0" Name="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#" Value="YES"/>
 <row ERTUsage="0" Mod="0" Name="&amp;UC4RB_SMB_VARA_NAME#" Value="&amp;UC4RB_ARTIFACT_VARA_NAME#"/>
 </Values>
 <Mode>0</Mode>
@@ -362,7 +364,8 @@
 <node content="1" id="VALUE" name="Variables" parent="" type="VALUE">
 <VALUE state="1">
 <Values>
-<row ERTUsage="0" Name="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#" Value="&amp;UC4RB_DOWNLOAD_CHECKSUM#"/>
+<row ERTUsage="0" Name="&amp;UC4RB_CHECKSUM_PATH#" Value="EXT:@artifact/custom/checksum_path"/>
+<row ERTUsage="0" Name="&amp;UC4RB_SMB_DOWNLOAD_CHECKSUM#" Value="YES"/>
 <row ERTUsage="0" Name="&amp;UC4RB_SMB_VARA_NAME#" Value="&amp;UC4RB_ARTIFACT_VARA_NAME#"/>
 </Values>
 <Mode>0</Mode>
@@ -412,7 +415,20 @@
 <FInclSubDirs>0</FInclSubDirs>
 </ROLLBACK>
 <SCRIPT mode="1" state="1">
-<MSCRI/>
+<MSCRI><![CDATA[:IF &UC4RB_CHECKSUM_OPTION# = "IGNORE"
+:  SET &UC4RB_SMB_DOWNLOAD_CHECKSUM# = "NO"
+:ENDIF
+
+:SET &UC4RB_CHECKSUM_PATH# = STR_TRIM(&UC4RB_CHECKSUM_PATH#)
+:IF &UC4RB_CHECKSUM_PATH# = ""
+:  SET &MISSING_CHECKSUM_PATH# = "Y"
+:ELSE
+:  SET &MISSING_CHECKSUM_PATH# = STR_STARTS_WITH(&UC4RB_CHECKSUM_PATH#, "EXT:")
+:ENDIF
+
+:IF &MISSING_CHECKSUM_PATH# = "Y"
+:  SET &UC4RB_SMB_DOWNLOAD_CHECKSUM# = "NO"
+:ENDIF]]></MSCRI>
 </SCRIPT>
 <DOCU_Docu state="1" type="text">
 <DOC><![CDATA[Downloads files from a SMB/CIFS server]]></DOC>
