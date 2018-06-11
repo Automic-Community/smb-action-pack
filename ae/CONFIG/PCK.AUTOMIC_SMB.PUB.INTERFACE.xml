@@ -26,7 +26,7 @@
 <VARA state="1">
 <XML>
 <Parameters>
-<row Name="interface" Value="&lt;interface&gt;&lt;artifact-transfer&gt;&lt;hooks&gt;&lt;extend-hook condition-value=&quot;SMB&quot; condition-variable=&quot;&amp;amp;UC4RB_TRANSFER_PROTOCOL#&quot; name=&quot;PCK.AUTOMIC_BOND.HOOK.GET_ARTIFACT.DOWNLOAD&quot;&gt;PCK.AUTOMIC_SMB.PUB.HOOK.DOWNLOAD_ARTIFACT&lt;/extend-hook&gt;&lt;extend-hook condition-value=&quot;SMB&quot; condition-variable=&quot;&amp;amp;UC4RB_TRANSFER_PROTOCOL#&quot; name=&quot;PCK.AUTOMIC_BOND.HOOK.GET_ARTIFACT.DOWNLOAD_CHECKSUM&quot;&gt;PCK.AUTOMIC_SMB.PUB.HOOK.DOWNLOAD_ARTIFACT_CHECKSUM&lt;/extend-hook&gt;&lt;/hooks&gt;&lt;/artifact-transfer&gt;&lt;/interface&gt;"/>
+<row Name="interface" Value="&lt;interface&gt;&lt;artifact-transfer&gt;&lt;hooks&gt;&lt;extend-hook condition-value=&quot;SMB&quot; condition-variable=&quot;&amp;amp;UC4RB_TRANSFER_PROTOCOL#&quot; name=&quot;PCK.AUTOMIC_BOND.HOOK.GET_ARTIFACT.DOWNLOAD&quot;&gt;PCK.AUTOMIC_SMB.PUB.HOOK.DOWNLOAD_ARTIFACT&lt;/extend-hook&gt;&lt;/hooks&gt;&lt;/artifact-transfer&gt;&lt;/interface&gt;"/>
 </Parameters>
 </XML>
 </VARA>
