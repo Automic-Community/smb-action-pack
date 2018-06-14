@@ -3,16 +3,16 @@
   <Name>SMB</Name>
   <Properties>
     <Group name="Connection" displayName="Connection" expand="true">
-      <Property name="protocol" displayName="Transfer Protocol" mode="READONLY" type="SingleLineText">
+      <Property name="protocol" displayName="Protocol" mode="READONLY" type="SingleLineText">
         <Defaultvalue>SMB</Defaultvalue>
       </Property>
       <Property name="host" displayName="Host" mode="EDITABLE" type="SingleLineText">
         <Defaultvalue>127.0.0.1</Defaultvalue>
-        <Description>Host to connect to</Description>
+        <Description>Host name or IP address. Ex: localhost or 192.168.1.2</Description>
       </Property>
       <Property name="port" displayName="Port"  mode="EDITABLE" type="Integer">
         <Defaultvalue>139</Defaultvalue>
-        <Description>Port to connect to</Description>
+        <Description>Specify a port number if a non standard port is to be used. Default: 139</Description>
       </Property>
       <Property name="connection_timeout" displayName="Connection Timeout" mode="EDITABLE" type="Integer">
 		<Description>Connection timeout in milliseconds.</Description>
