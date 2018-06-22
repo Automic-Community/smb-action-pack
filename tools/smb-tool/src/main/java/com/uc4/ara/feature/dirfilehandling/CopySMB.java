@@ -171,7 +171,7 @@ public class CopySMB extends AbstractCopy {
 		InputStream is = new BufferedInputStream(new SmbFileInputStream(file));
 		OutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
 		
-		FeatureUtil.logMsg("Copying " + file.getName() + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
+		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.getCanonicalPath(), to) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
 			int bufferSize = (int) (file.length() < MAX_BUFFER_SIZE ? ((file.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
 			byte[] content = new byte[bufferSize];
@@ -193,6 +193,15 @@ public class CopySMB extends AbstractCopy {
 			is.close();
 			fos.close();
 		}
+	}
+	
+	private String getFileRelativizePath(String absolutePath, String to) {
+		String file = absolutePath.replace('\\', '/').toLowerCase();
+		String dest = to.replace('\\', '/').toLowerCase();
+		if (file.startsWith(dest)) {
+			file = file.substring(dest.length() + 1);
+		}
+		return file;
 	}
 
 	/**Get all files match the wildcard from smb server
