@@ -6,7 +6,7 @@ binaries:
   - name: SMBTOOL.JAR
     type: BINARY
     path: tools/smb-tool/target/smb-tool.jar
-    version: 1.1.4
+    version: 1.1.5
   - name: JCIFS.JAR
     type: BINARY
     path: tools/jcifs/jcifs.jar
