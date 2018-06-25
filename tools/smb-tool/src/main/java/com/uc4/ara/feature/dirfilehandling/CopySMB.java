@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -171,7 +172,7 @@ public class CopySMB extends AbstractCopy {
 		InputStream is = new BufferedInputStream(new SmbFileInputStream(file));
 		OutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
 		
-		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.getCanonicalPath(), to) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
+		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.toPath(), new File(to).toPath()) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
 			int bufferSize = (int) (file.length() < MAX_BUFFER_SIZE ? ((file.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
 			byte[] content = new byte[bufferSize];
@@ -195,13 +196,8 @@ public class CopySMB extends AbstractCopy {
 		}
 	}
 	
-	private String getFileRelativizePath(String absolutePath, String to) {
-		String file = absolutePath.replace('\\', '/').toLowerCase();
-		String dest = to.replace('\\', '/').toLowerCase();
-		if (file.startsWith(dest)) {
-			file = file.substring(dest.length() + 1);
-		}
-		return file;
+	private String getFileRelativizePath(Path file, Path destination) {
+		return destination.relativize(file).toString().replace('\\', '/');
 	}
 
 	/**Get all files match the wildcard from smb server
