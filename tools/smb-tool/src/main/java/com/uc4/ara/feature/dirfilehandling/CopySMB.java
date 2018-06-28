@@ -120,11 +120,11 @@ public class CopySMB extends AbstractCopy {
 			File currentLocal =  new File(localFile, file.getPath().substring(srcRemote.length()));
 			createParentDir(currentLocal);
 
-			if ( recursive && file.isDirectory())
+			if (file.isDirectory() && recursive) {
 				deepRetrieve(file, currentLocal);
-
-			else
+			} else if (file.isFile()){
 				singleFileRetrieve(file, currentLocal);
+			}
 		}
 	}
 
