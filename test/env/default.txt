@@ -3,7 +3,7 @@ Library           com.automic.robot.itpa.ItpaLibrary
 
 *** Variables ***
 #---- VMWARE ---------------------
-@{VM}             https://172.16.16.21/sdk    t.vn_test    ZHN7ujm+235wer    vvnsat01:2181    # url, user, pass
+@{VM}             https://vvnvc01/sdk    t.vn_test    ZHN7ujm+235wer    vvnsat01:2181    # url, user, pass
 #---- AE -------------------------
 @{AE}             ${SYSTEM_AE}    ${HOST_AE}    ${PORT_AE}    ${AE_CLIENT}/API/API    123    # system, host, port, user, pass
 #---- GLOBAL CONTEXT VARIABLES ---

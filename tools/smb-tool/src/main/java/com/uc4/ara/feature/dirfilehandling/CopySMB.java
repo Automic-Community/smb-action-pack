@@ -211,19 +211,12 @@ public class CopySMB extends AbstractCopy {
 	 */
 	private List<SmbFile> getFilesWildCard(SmbFile smbFrom, String path, NtlmPasswordAuthentication ntlmPasswordAuthentication )
 			throws SmbException, MalformedURLException {
-
 		String[] dirs = path.split("/+");
 		List<SmbFile> listFiles = new ArrayList<SmbFile>();
 				
 		for (String dir : dirs){
 			if(!dir.equals("")){
-				try {
-
-					listFiles.addAll(Arrays.asList(smbFrom.listFiles(dir)));
-					
-				} catch (SmbException e){
-					FeatureUtil.logMsg("Warning! Can not list directories at path '" + smbFrom.getPath() + "'. Message: " + e.getMessage());
-				}
+				listFiles.addAll(Arrays.asList(smbFrom.listFiles(dir)));
 				break;
 			}
 		}
