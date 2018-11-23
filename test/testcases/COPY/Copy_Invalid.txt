@@ -11,6 +11,8 @@ Wrong Port            VVNSATSTNDRD01           1399999999    source             
 
 Wrong Source          VVNSATSTNDRD01           \             source${/}invalid    tester           ventum2011@    4              ${EMPTY}
 
+Wrong User and Wildcard       VVNSATSTNDRD01           \             source${/}*.zip    tester           ventum2011@    999              ${FailedToConnectToServer}
+
 Wrong User            VVNSATSTNDRD01           \             source_test          tester           ventum2011@    999            ${EMPTY}
 
 Wrong Password        VVNSATSTNDRD01           \             source_test          administrator    S3rv3r@Aut1    999            ${EMPTY}
