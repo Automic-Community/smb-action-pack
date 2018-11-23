@@ -129,11 +129,11 @@ public class PutFiles extends AbstractPublicFeature {
 
         String recursiveStr = parser.getOptionValue(recursive);
         String overwriteStr = parser.getOptionValue(overwrite);
-        String perserveStr = parser.getOptionValue(preserve);
+        String preserveStr = parser.getOptionValue(preserve);
 
         boolean recursiveValue = recursiveStr !=null && recursiveStr.equalsIgnoreCase("no") ? false : true;
         boolean overwriteValue = overwriteStr != null && overwriteStr.equalsIgnoreCase("yes") ? true : false;
-        boolean preserveValue = perserveStr != null && perserveStr.equalsIgnoreCase("yes") ? true : false;
+        boolean preserveValue = preserveStr != null && preserveStr.equalsIgnoreCase("yes") ? true : false;
 
         long timeoutValue = 5000;
         try {
