@@ -174,7 +174,7 @@ public class CopySMB extends AbstractCopy {
 		
 		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.toPath(), new File(to).toPath()) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
-			int bufferSize = (int) (file.length() < MAX_BUFFER_SIZE ? ((file.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
+			int bufferSize = MAX_BUFFER_SIZE;
 			byte[] content = new byte[bufferSize];
 			int read;
 			while ((read = is.read(content)) > 0) {
@@ -323,7 +323,7 @@ public class CopySMB extends AbstractCopy {
 		OutputStream fos = new BufferedOutputStream(new SmbFileOutputStream(toFile));
 		
 		try {
-			int bufferSize = (int) (localFile.length() < MAX_BUFFER_SIZE ? ((localFile.length()/1024 + 1)*1024) : MAX_BUFFER_SIZE);
+			int bufferSize = MAX_BUFFER_SIZE/10;
 			byte[] content = new byte[bufferSize];
 			int read;
 			while ((read = is.read(content)) > 0) {
