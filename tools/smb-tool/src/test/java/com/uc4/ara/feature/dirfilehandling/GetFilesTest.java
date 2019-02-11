@@ -16,7 +16,7 @@ public class GetFilesTest {
 				"-p", "139",
 				"-u", "Administrator",
 				"-pwd", "S3rv3r@Aut",
-				"-src", "source\\One_Installer\\CA.Continuous.Delivery.Automation*.zip",
+				"-src", "automic\\uc4.enterprise.control.center.war",
 				"-tgt", "C:\\test\\One_Installer",
 				"-o", "YES",
 				"-to", "5000",
@@ -38,15 +38,39 @@ public class GetFilesTest {
 				"-prc", "SMB",
 				"-h", "192.168.40.112",
 				"-p", "139",
-				"-u", "sbb01\\admin",
-				"-pwd", "",
+				"-u", "admin",
+				"-pwd", "password",
 				"-src", "stg\\qa\\EM\\1.0.0\\+\\*.zip",
 				"-tgt", "C:\\test\\One_Installer",
 				"-o", "YES",
 				"-to", "5000",
 				"-prv", "YES",
 				"-r", "YES",
-				"-smbDN", ""};
+				"-smbDN", "sbb01"};
+		long start = System.currentTimeMillis();
+		int retCode = test.run(args);
+		long end = System.currentTimeMillis();
+		System.out.println("DEBUG: Get file from pd01 took " + (end - start)/1000 + " seconds");
+		assertEquals(0, retCode);
+	}
+	
+	@Test
+	public void testGetFileFromFsu_ShouldSuccess() throws Exception {
+		GetFiles test = new GetFiles();
+		test.initialize();
+		String[] args = new String[] {
+				"-prc", "SMB",
+				"-h", "10.243.44.232",
+				"-p", "139",
+				"-u", "ucprod",
+				"-pwd", "--109B26FB0810557FB8DB6827BAD224CF84",
+				"-src", "UC100T/DB/jdbc/sqljdbc42.jar",
+				"-tgt", "C:\\test\\One_Installer\\sqljdbc42.jar",
+				"-o", "YES",
+				"-to", "5000",
+				"-prv", "YES",
+				"-r", "YES",
+				"-smbDN", "SBB01"};
 		long start = System.currentTimeMillis();
 		int retCode = test.run(args);
 		long end = System.currentTimeMillis();
