@@ -10,6 +10,11 @@ public abstract class AbstractCopy {
     protected static final int ERROR_CODE_CONNECTION_IS_REFUSED = 3;
     protected static final int ERROR_CODE_FILE_NOT_FOUND = 4;
     protected static final int ERROR_CODE_FILE_COULD_NOT_BE_WRITTEN = 5;
+    
+    protected final int KILOBYTE = 1024;
+    protected final int MEGABYTE = 1024 * KILOBYTE;
+    protected final int GIGABYTE = 1024 * MEGABYTE;
+
     protected final int MAX_BUFFER_SIZE = 100 * 1024 * 1024; // 100 MByte
     
 	protected int errorCode;

@@ -47,16 +47,15 @@ public class CopySMB extends AbstractCopy {
 
 		from = from.replaceAll("\\\\", "/");
 		from = FileUtil.normalize(from);
-		if(! from.startsWith("/") ) from = "/" + from;
+		if(!from.startsWith("/") ) from = "/" + from;
 
 		if (from.length() > 3 && from.substring(1, 3).equals(":\\")) {
 			path = path + from.substring(0, 1) + "$/" + from.substring(3);
-		} else
+		} else {
 			path = path + from;
+		}
 
 		FeatureUtil.logMsg("Connecting to " + path + " ...");
-		jcifs.Config.setProperty("jcifs.smb.client.connTimeout", Long.toString(timeout));
-
 		NtlmPasswordAuthentication ntlmPasswordAuthentication;
 		
 		// this trick to bypass the strange way jcifs.smb handles anonymous user, that it distinguishes between blank string ("") and null passed to username/password
@@ -65,39 +64,34 @@ public class CopySMB extends AbstractCopy {
 		    password = null;
 		}
 		
+		jcifs.Config.setProperty("jcifs.smb.client.connTimeout", Long.toString(timeout));		
 		jcifs.Config.setProperty("jcifs.resolveOrder", "DNS");
+		//jcifs.Config.setProperty("jcifs.smb.client.dfs.disabled", "false");
+		//jcifs.Config.setProperty("jcifs.util.loglevel", "3");
 		ntlmPasswordAuthentication = new NtlmPasswordAuthentication(smbDomainName, username, password);
-
 				
 		try {
 			File localFile = new File(to);
 			createParentDir(localFile);
 
 			SmbFile smbFrom = new SmbFile(path, ntlmPasswordAuthentication);
-
 			if(from.contains("*") || from.contains("?")){
 				deepRetrieveWildCard(path, localFile, ntlmPasswordAuthentication);
-
 			} else if (smbFrom.isDirectory()) {
-
 				if(!path.endsWith("/") )
 					smbFrom = new SmbFile(path + "/", ntlmPasswordAuthentication);
 				deepRetrieve(smbFrom, localFile);
-
 			} else if(smbFrom.isFile()) {
-
 				if(from.endsWith("/"))
 					from = from.substring(0, from.length() - 1 );
 				if(localFile.isDirectory())
 					localFile = new File(localFile, from.substring(from.lastIndexOf("/")));
 
 				singleFileRetrieve(smbFrom, localFile);
-
-			} else{
+			}else{
 				FeatureUtil.logMsg( FileUtil.normalize(path) + " does not exist. Please check the path again. Aborting ...");
 				errorCode = ErrorCodes.ERROR;
 			}
-
 		} catch (SmbException e){
 			FeatureUtil.logMsg(e.getMessage() + " Please check the host, port, username, password or domain name again. Aborting ...");
 			return ErrorCodes.EXCEPTION;
@@ -169,17 +163,42 @@ public class CopySMB extends AbstractCopy {
 			}
 		}
 		
-		InputStream is = new BufferedInputStream(new SmbFileInputStream(file));
-		OutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
+		BufferedInputStream is = new BufferedInputStream(new SmbFileInputStream(file));
+		BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
 		
 		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.toPath(), new File(to).toPath()) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
-			int bufferSize = MAX_BUFFER_SIZE;
+			// trick to calculate file size to buffer size
+			int bufferSize = 8 * KILOBYTE;
+			long length = file.length();
+			if (length > 512 * MEGABYTE)
+				bufferSize = 128 * MEGABYTE;
+			else if ((length <= 512 * MEGABYTE) && (length > 64 * MEGABYTE)) 
+				bufferSize = 64 * MEGABYTE;
+			else if ((length <= 64 * MEGABYTE) && (length > 32 * MEGABYTE))
+				bufferSize = 32 * MEGABYTE;
+			else if ((length <= 32 * MEGABYTE) && (length > 8 * MEGABYTE))
+				bufferSize = 8 * MEGABYTE;
+			else if ((length <= 8 * MEGABYTE) && (length > 4 * MEGABYTE))
+				bufferSize = 4 * MEGABYTE;
+			else if ((length <= 4 * MEGABYTE) && (length > MEGABYTE))
+				bufferSize = MEGABYTE;
+			else if ((length <= MEGABYTE) && (length > 512 * KILOBYTE))
+				bufferSize = 128 * KILOBYTE;
+			else if ((length <= 512 * KILOBYTE) && (length > 64 * KILOBYTE))
+				bufferSize = 64 * KILOBYTE;
+			else if (length <= 64 * KILOBYTE)
+				bufferSize = 32 * KILOBYTE;
+			
 			byte[] content = new byte[bufferSize];
-			int read;
+			int read, total = 0;
+			long t0 = System.currentTimeMillis();
 			while ((read = is.read(content)) > 0) {
 				fos.write(content, 0, read);
+				total += read;
 			}
+			long t = System.currentTimeMillis() - t0;
+			FeatureUtil.logMsg( total + " bytes transfered in " + ( t / 1000 ) + " seconds at " + (( total / 1000 ) / Math.max( 1, ( t / 1000 ))) + "Kbytes/sec" );
 
 			if (preserve) {
 				f.setLastModified(file.getLastModified());
@@ -189,7 +208,6 @@ public class CopySMB extends AbstractCopy {
 				if (file.isHidden() && System.getProperty("os.name").toLowerCase().trim().contains("windows"))
 					Runtime.getRuntime().exec("attrib +H " + f.getCanonicalPath());
 			}
-
 		} finally {
 			is.close();
 			fos.close();
