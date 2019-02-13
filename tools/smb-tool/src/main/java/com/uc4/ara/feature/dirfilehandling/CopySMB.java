@@ -198,7 +198,7 @@ public class CopySMB extends AbstractCopy {
 				total += read;
 			}
 			long t = System.currentTimeMillis() - t0;
-			FeatureUtil.logMsg( total + " bytes transfered in " + ( t / 1000 ) + " seconds at " + (( total / 1000 ) / Math.max( 1, ( t / 1000 ))) + "Kbytes/sec" );
+			/*FeatureUtil.logMsg( total + " bytes transfered in " + ( t / 1000 ) + " seconds at " + (( total / 1000 ) / Math.max( 1, ( t / 1000 ))) + "Kbytes/sec" );*/
 
 			if (preserve) {
 				f.setLastModified(file.getLastModified());
