@@ -16,8 +16,32 @@ public class GetFilesTest {
 				"-p", "139",
 				"-u", "Administrator",
 				"-pwd", "S3rv3r@Aut",
-				"-src", "automic\\uc4.enterprise.control.center.war",
+				"-src", "automic/smb/JDK/jdk-11u13",
 				"-tgt", "C:\\test\\One_Installer",
+				"-o", "YES",
+				"-to", "5000",
+				"-prv", "YES",
+				"-r", "YES",
+				"-smbDN", ""};
+		long start = System.currentTimeMillis();
+		int retCode = test.run(args);
+		long end = System.currentTimeMillis();
+		System.out.println("DEBUG: Get large file took " + (end - start)/1000 + " seconds");
+		assertEquals(0, retCode);
+	}
+	
+	@Test
+	public void testGetMultiFiles_ShouldSuccess() throws Exception {
+		GetFiles test = new GetFiles();
+		test.initialize();
+		String[] args = new String[] {
+				"-prc", "SMB",
+				"-h", "VVNSATSTNDRD01",
+				"-p", "139",
+				"-u", "Administrator",
+				"-pwd", "S3rv3r@Aut",
+				"-src", "automic/smb/APP_SRV/apache-tomcat-9.0.14",
+				"-tgt", "C:/test/One_Installer/APP_SRV/apache-tomcat-9.0.14",
 				"-o", "YES",
 				"-to", "5000",
 				"-prv", "YES",
