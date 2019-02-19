@@ -169,8 +169,8 @@ public class CopySMB extends AbstractCopy {
 		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.toPath(), new File(to).toPath()) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
 			// trick to calculate file size to buffer size
-			int bufferSize = 8 * KILOBYTE;
-			long length = file.length();
+			int bufferSize = MAX_BUFFER_SIZE;
+			/*long length = file.length();
 			if (length > 512 * MEGABYTE)
 				bufferSize = 128 * MEGABYTE;
 			else if ((length <= 512 * MEGABYTE) && (length > 64 * MEGABYTE)) 
@@ -188,7 +188,7 @@ public class CopySMB extends AbstractCopy {
 			else if ((length <= 512 * KILOBYTE) && (length > 64 * KILOBYTE))
 				bufferSize = 64 * KILOBYTE;
 			else if (length <= 64 * KILOBYTE)
-				bufferSize = 32 * KILOBYTE;
+				bufferSize = 32 * KILOBYTE;*/
 			
 			byte[] content = new byte[bufferSize];
 			int read, total = 0;
@@ -197,6 +197,7 @@ public class CopySMB extends AbstractCopy {
 				fos.write(content, 0, read);
 				total += read;
 			}
+			fos.flush();
 			long t = System.currentTimeMillis() - t0;
 			/*FeatureUtil.logMsg( total + " bytes transfered in " + ( t / 1000 ) + " seconds at " + (( total / 1000 ) / Math.max( 1, ( t / 1000 ))) + "Kbytes/sec" );*/
 
@@ -341,7 +342,7 @@ public class CopySMB extends AbstractCopy {
 		OutputStream fos = new BufferedOutputStream(new SmbFileOutputStream(toFile));
 		
 		try {
-			int bufferSize = MAX_BUFFER_SIZE/10;
+			int bufferSize = MAX_BUFFER_SIZE/8;
 			byte[] content = new byte[bufferSize];
 			int read;
 			while ((read = is.read(content)) > 0) {
