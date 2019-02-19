@@ -15,7 +15,7 @@ public abstract class AbstractCopy {
     protected final int MEGABYTE = 1024 * KILOBYTE;
     protected final int GIGABYTE = 1024 * MEGABYTE;
 
-    protected final int MAX_BUFFER_SIZE = 100 * 1024 * 1024; // 100 MByte
+    protected final int MAX_BUFFER_SIZE = 128 * 1024 * 1024; // 100 MByte
     
 	protected int errorCode;
 

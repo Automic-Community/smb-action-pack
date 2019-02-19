@@ -37,7 +37,7 @@ public class GetFilesTest {
 		long start = System.currentTimeMillis();
 		int retCode = test.run(args);
 		long end = System.currentTimeMillis();
-		System.out.println("DEBUG: Get large file took " + (end - start)/1000 + " seconds");
+		System.out.println("DEBUG: Get file took " + (end - start)/1000 + " seconds");
 		assertEquals(0, retCode);
 	}
 	
@@ -61,7 +61,7 @@ public class GetFilesTest {
 		long start = System.currentTimeMillis();
 		int retCode = test.run(args);
 		long end = System.currentTimeMillis();
-		System.out.println("DEBUG: Get large file took " + (end - start)/1000 + " seconds");
+		System.out.println("DEBUG: Get file took " + (end - start)/1000 + " seconds");
 		assertEquals(0, retCode);
 	}
 	
@@ -85,7 +85,31 @@ public class GetFilesTest {
 		long start = System.currentTimeMillis();
 		int retCode = test.run(args);
 		long end = System.currentTimeMillis();
-		System.out.println("DEBUG: Get large file took " + (end - start)/1000 + " seconds");
+		System.out.println("DEBUG: Get file took " + (end - start)/1000 + " seconds");
+		assertEquals(0, retCode);
+	}
+	
+	@Test
+	public void testGetJDKFiles_ShouldSuccess() throws Exception {
+		GetFiles test = new GetFiles();
+		test.initialize();
+		String[] args = new String[] {
+				"-prc", "SMB",
+				"-h", "VVNSATSTNDRD01",
+				"-p", "139",
+				"-u", "Administrator",
+				"-pwd", "S3rv3r@Aut",
+				"-src", "automic/smb/JDK",
+				"-tgt", targetDirectory + "JDK",
+				"-o", "YES",
+				"-to", "5000",
+				"-prv", "YES",
+				"-r", "YES",
+				"-smbDN", ""};
+		long start = System.currentTimeMillis();
+		int retCode = test.run(args);
+		long end = System.currentTimeMillis();
+		System.out.println("DEBUG: Get file took " + (end - start)/1000 + " seconds");
 		assertEquals(0, retCode);
 	}
 
