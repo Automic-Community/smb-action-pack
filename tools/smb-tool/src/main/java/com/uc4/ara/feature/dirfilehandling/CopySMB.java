@@ -27,7 +27,7 @@ import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 
 public class CopySMB extends AbstractCopy {
-	
+
 	private static final String FILENAME_SPLITTER = "=::=";
 
 	public CopySMB(String host, int port, String username, String password,
@@ -57,19 +57,19 @@ public class CopySMB extends AbstractCopy {
 
 		FeatureUtil.logMsg("Connecting to " + path + " ...");
 		NtlmPasswordAuthentication ntlmPasswordAuthentication;
-		
+
 		// this trick to bypass the strange way jcifs.smb handles anonymous user, that it distinguishes between blank string ("") and null passed to username/password
 		if (StringUtils.isBlank(username)) {
 		    username = null;
 		    password = null;
 		}
-		
-		jcifs.Config.setProperty("jcifs.smb.client.connTimeout", Long.toString(timeout));		
+
+		jcifs.Config.setProperty("jcifs.smb.client.connTimeout", Long.toString(timeout));
 		jcifs.Config.setProperty("jcifs.resolveOrder", "DNS");
 		//jcifs.Config.setProperty("jcifs.smb.client.dfs.disabled", "false");
 		//jcifs.Config.setProperty("jcifs.util.loglevel", "3");
 		ntlmPasswordAuthentication = new NtlmPasswordAuthentication(smbDomainName, username, password);
-				
+
 		try {
 			File localFile = new File(to);
 			createParentDir(localFile);
@@ -162,35 +162,13 @@ public class CopySMB extends AbstractCopy {
 				return;
 			}
 		}
-		
+
 		BufferedInputStream is = new BufferedInputStream(new SmbFileInputStream(file));
 		BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(f));
-		
+
 		FeatureUtil.logMsg("Copying " + getFileRelativizePath(f.toPath(), new File(to).toPath()) + FILENAME_SPLITTER + "'"  + file.getPath() + "' => '" + f.getCanonicalPath() + "'");
 		try {
-			// trick to calculate file size to buffer size
-			int bufferSize = MAX_BUFFER_SIZE;
-			/*long length = file.length();
-			if (length > 512 * MEGABYTE)
-				bufferSize = 128 * MEGABYTE;
-			else if ((length <= 512 * MEGABYTE) && (length > 64 * MEGABYTE)) 
-				bufferSize = 64 * MEGABYTE;
-			else if ((length <= 64 * MEGABYTE) && (length > 32 * MEGABYTE))
-				bufferSize = 32 * MEGABYTE;
-			else if ((length <= 32 * MEGABYTE) && (length > 8 * MEGABYTE))
-				bufferSize = 8 * MEGABYTE;
-			else if ((length <= 8 * MEGABYTE) && (length > 4 * MEGABYTE))
-				bufferSize = 4 * MEGABYTE;
-			else if ((length <= 4 * MEGABYTE) && (length > MEGABYTE))
-				bufferSize = MEGABYTE;
-			else if ((length <= MEGABYTE) && (length > 512 * KILOBYTE))
-				bufferSize = 128 * KILOBYTE;
-			else if ((length <= 512 * KILOBYTE) && (length > 64 * KILOBYTE))
-				bufferSize = 64 * KILOBYTE;
-			else if (length <= 64 * KILOBYTE)
-				bufferSize = 32 * KILOBYTE;*/
-			
-			byte[] content = new byte[bufferSize];
+			byte[] content = new byte[MAX_BUFFER_SIZE];
 			int read, total = 0;
 			long t0 = System.currentTimeMillis();
 			while ((read = is.read(content)) > 0) {
@@ -199,8 +177,6 @@ public class CopySMB extends AbstractCopy {
 			}
 			fos.flush();
 			long t = System.currentTimeMillis() - t0;
-			/*FeatureUtil.logMsg( total + " bytes transfered in " + ( t / 1000 ) + " seconds at " + (( total / 1000 ) / Math.max( 1, ( t / 1000 ))) + "Kbytes/sec" );*/
-
 			if (preserve) {
 				f.setLastModified(file.getLastModified());
 				f.setReadable(file.canRead());
@@ -214,7 +190,7 @@ public class CopySMB extends AbstractCopy {
 			fos.close();
 		}
 	}
-	
+
 	private String getFileRelativizePath(Path file, Path destination) {
 		return destination.relativize(file).toString().replace('\\', '/');
 	}
@@ -232,7 +208,7 @@ public class CopySMB extends AbstractCopy {
 			throws SmbException, MalformedURLException {
 		String[] dirs = path.split("/+");
 		List<SmbFile> listFiles = new ArrayList<SmbFile>();
-				
+
 		for (String dir : dirs){
 			if(!dir.equals("")){
 				listFiles.addAll(Arrays.asList(smbFrom.listFiles(dir)));
@@ -337,10 +313,10 @@ public class CopySMB extends AbstractCopy {
 		}
 
 		FeatureUtil.logMsg("Copying '" + localFile.getCanonicalPath() + "' => '" + toFile.getPath() + "'");
-		
+
 		InputStream is = new BufferedInputStream(new FileInputStream(localFile));
 		OutputStream fos = new BufferedOutputStream(new SmbFileOutputStream(toFile));
-		
+
 		try {
 			int bufferSize = MAX_BUFFER_SIZE/8;
 			byte[] content = new byte[bufferSize];
