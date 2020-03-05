@@ -25,7 +25,7 @@ import jcifs.CIFSContext;
 import jcifs.Configuration;
 import jcifs.config.PropertyConfiguration;
 import jcifs.context.BaseContext;
-import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.NtlmPasswordAuthenticator;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
@@ -61,8 +61,8 @@ public class CopySMB extends AbstractCopy {
 		}
 
 		FeatureUtil.logMsg("Connecting to " + path + " ...");
-		NtlmPasswordAuthentication ntlmPasswordAuthentication;
-
+	//	NtlmPasswordAuthentication ntlmPasswordAuthentication;
+        NtlmPasswordAuthenticator ntlmPasswordAutenticator;
 		// this trick to bypass the strange way jcifs.smb handles anonymous user, that it distinguishes between blank string ("") and null passed to username/password
 		if (StringUtils.isBlank(username)) {
 		    username = null;
@@ -75,8 +75,8 @@ public class CopySMB extends AbstractCopy {
 		
 		Configuration config = new PropertyConfiguration(prop);
 		CIFSContext baseContext = new BaseContext(config);
-		ntlmPasswordAuthentication = new NtlmPasswordAuthentication(baseContext,smbDomainName, username, password);
-		CIFSContext contextWithCred = baseContext.withCredentials(ntlmPasswordAuthentication);
+		ntlmPasswordAutenticator = new NtlmPasswordAuthenticator(smbDomainName, username, password);
+		CIFSContext contextWithCred = baseContext.withCredentials(ntlmPasswordAutenticator);
 		
 		try {
 			File localFile = new File(to);
@@ -236,9 +236,9 @@ public class CopySMB extends AbstractCopy {
 		
 		Configuration config = new PropertyConfiguration(prop);
 		CIFSContext baseContext = new BaseContext(config);
-		NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(baseContext,
-				smbDomainName, username, password);
-		CIFSContext contextWithCred = baseContext.withCredentials(ntlmPasswordAuthentication);
+		NtlmPasswordAuthenticator ntlmPasswordAutenticator = new NtlmPasswordAuthenticator(smbDomainName, username, password);
+
+		CIFSContext contextWithCred = baseContext.withCredentials(ntlmPasswordAutenticator);
 
 		String path = host;
 		if (!path.toLowerCase().startsWith("smb://"))
