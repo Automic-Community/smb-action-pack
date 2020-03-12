@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +21,11 @@ import com.uc4.ara.feature.FeatureUtil;
 import com.uc4.ara.feature.globalcodes.ErrorCodes;
 import com.uc4.ara.feature.utils.FileUtil;
 
-import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.CIFSContext;
+import jcifs.Configuration;
+import jcifs.config.PropertyConfiguration;
+import jcifs.context.BaseContext;
+import jcifs.smb.NtlmPasswordAuthenticator;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
@@ -56,30 +61,33 @@ public class CopySMB extends AbstractCopy {
 		}
 
 		FeatureUtil.logMsg("Connecting to " + path + " ...");
-		NtlmPasswordAuthentication ntlmPasswordAuthentication;
-
+        NtlmPasswordAuthenticator ntlmPasswordAutenticator;
 		// this trick to bypass the strange way jcifs.smb handles anonymous user, that it distinguishes between blank string ("") and null passed to username/password
 		if (StringUtils.isBlank(username)) {
 		    username = null;
 		    password = null;
 		}
 
-		jcifs.Config.setProperty("jcifs.smb.client.connTimeout", Long.toString(timeout));
-		jcifs.Config.setProperty("jcifs.resolveOrder", "DNS");
-		//jcifs.Config.setProperty("jcifs.smb.client.dfs.disabled", "false");
-		//jcifs.Config.setProperty("jcifs.util.loglevel", "3");
-		ntlmPasswordAuthentication = new NtlmPasswordAuthentication(smbDomainName, username, password);
-
+		Properties prop = new Properties();
+		prop.put( "jcifs.smb.client.connTimeout", Long.toString(timeout));
+		prop.put( "jcifs.resolveOrder", "DNS");
+		
+		Configuration config = new PropertyConfiguration(prop);
+		CIFSContext baseContext = new BaseContext(config);
+		ntlmPasswordAutenticator = new NtlmPasswordAuthenticator(smbDomainName, username, password);
+		CIFSContext contextWithCred = baseContext.withCredentials(ntlmPasswordAutenticator);
+		
 		try {
 			File localFile = new File(to);
 			createParentDir(localFile);
 
-			SmbFile smbFrom = new SmbFile(path, ntlmPasswordAuthentication);
+			SmbFile smbFrom = new SmbFile(path, contextWithCred);
+			
 			if(from.contains("*") || from.contains("?")){
-				deepRetrieveWildCard(path, localFile, ntlmPasswordAuthentication);
+				deepRetrieveWildCard(path, localFile, contextWithCred);
 			} else if (smbFrom.isDirectory()) {
 				if(!path.endsWith("/") )
-					smbFrom = new SmbFile(path + "/", ntlmPasswordAuthentication);
+					smbFrom = new SmbFile(path + "/", contextWithCred);
 				deepRetrieve(smbFrom, localFile);
 			} else if(smbFrom.isFile()) {
 				if(from.endsWith("/"))
@@ -103,13 +111,13 @@ public class CopySMB extends AbstractCopy {
 		return errorCode;
 	}
 
-	private void deepRetrieveWildCard(String path, File localFile, NtlmPasswordAuthentication ntlmPasswordAuthentication )
+	private void deepRetrieveWildCard(String path, File localFile, CIFSContext contextWithCred )
 			throws UserException, IOException {
 
 		String srcRemote = FileUtil.getSourceWildCard(path);
-		SmbFile smbFrom = new SmbFile(srcRemote, ntlmPasswordAuthentication);
-
-		List<SmbFile> files = getFilesWildCard(smbFrom, path.substring(srcRemote.length() - 1), ntlmPasswordAuthentication);
+		SmbFile smbFrom = new SmbFile(srcRemote, contextWithCred);
+		
+		List<SmbFile> files = getFilesWildCard(smbFrom, path.substring(srcRemote.length() - 1));
 		for (SmbFile file : files) {
 			File currentLocal =  new File(localFile, file.getPath().substring(srcRemote.length()));
 			createParentDir(currentLocal);
@@ -199,12 +207,11 @@ public class CopySMB extends AbstractCopy {
 	 * @param smbFrom
 	 * @param path
 	 * 			Path contains wildcard
-	 * @param ntlmPasswordAuthentication
 	 * @return
 	 * @throws SmbException
 	 * @throws MalformedURLException
 	 */
-	private List<SmbFile> getFilesWildCard(SmbFile smbFrom, String path, NtlmPasswordAuthentication ntlmPasswordAuthentication )
+	private List<SmbFile> getFilesWildCard(SmbFile smbFrom, String path)
 			throws SmbException, MalformedURLException {
 		String[] dirs = path.split("/+");
 		List<SmbFile> listFiles = new ArrayList<SmbFile>();
@@ -222,8 +229,15 @@ public class CopySMB extends AbstractCopy {
 
 	@Override
 	public int store() throws Exception {
-		NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(
-				smbDomainName, username, password);
+		Properties prop = new Properties();
+		prop.put( "jcifs.smb.client.connTimeout", Long.toString(timeout));
+		prop.put( "jcifs.resolveOrder", "DNS");
+		
+		Configuration config = new PropertyConfiguration(prop);
+		CIFSContext baseContext = new BaseContext(config);
+		NtlmPasswordAuthenticator ntlmPasswordAutenticator = new NtlmPasswordAuthenticator(smbDomainName, username, password);
+
+		CIFSContext contextWithCred = baseContext.withCredentials(ntlmPasswordAutenticator);
 
 		String path = host;
 		if (!path.toLowerCase().startsWith("smb://"))
@@ -240,25 +254,24 @@ public class CopySMB extends AbstractCopy {
 			path = path + to;
 
 		FeatureUtil.logMsg("Connecting to " + path + " ...");
-		jcifs.Config.setProperty("jcifs.smb.client.connTimeout", Long.toString(timeout));
-
+		
 		File localFile = new File(from);
 
 		try {
-			SmbFile remoteFile = new SmbFile(path, ntlmPasswordAuthentication);
+			SmbFile remoteFile = new SmbFile(path, contextWithCred);
 
 			//Make sure the parent directory exists
-			SmbFile prFile = new SmbFile(remoteFile.getParent(), ntlmPasswordAuthentication);
+			SmbFile prFile = new SmbFile(remoteFile.getParent(), contextWithCred);
 			if(!prFile.exists() ) prFile.mkdirs();
-			if(! prFile.isDirectory())
+			if(!prFile.isDirectory())
 				FeatureUtil.logMsg("Remote Directory " + prFile.getCanonicalPath()  + " can't be created. Please check the path again. Aborting ...");
 
 			if (localFile.isDirectory())
-				deepStore(ntlmPasswordAuthentication, localFile, remoteFile);
+				deepStore(contextWithCred, localFile, remoteFile);
 
 			else if(localFile.isFile()) {
 				if(remoteFile.isDirectory())
-					remoteFile = new SmbFile(path + "/" + localFile.getName(), ntlmPasswordAuthentication);
+					remoteFile = new SmbFile(path + "/" + localFile.getName(), contextWithCred);
 
 				singleFileStore(localFile, remoteFile);
 			} else {
@@ -274,7 +287,7 @@ public class CopySMB extends AbstractCopy {
 		return ErrorCodes.OK;
 	}
 
-	private void deepStore(NtlmPasswordAuthentication ntlmPasswordAuthentication, File localFile, SmbFile rFile) throws IOException{
+	private void deepStore(CIFSContext contextWithCred, File localFile, SmbFile rFile) throws IOException{
 
 		if(rFile.isFile()) {
 			if(overwrite) {
@@ -290,10 +303,10 @@ public class CopySMB extends AbstractCopy {
 		if(!rFile.exists() ) rFile.mkdir();
 
 		for (File file : localFile.listFiles()) {
-			SmbFile child = new SmbFile(rFile.getCanonicalPath() + "/" + file.getName(), ntlmPasswordAuthentication );
+			SmbFile child = new SmbFile(rFile.getCanonicalPath() + "/" + file.getName(), contextWithCred );
 
 			if (file.isDirectory() && recursive)
-				deepStore(ntlmPasswordAuthentication, file, child );
+				deepStore(contextWithCred, file, child );
 
 			else if(file.isFile())
 				singleFileStore(file, child);

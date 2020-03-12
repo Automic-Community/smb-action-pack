@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.automic.actions</groupId>
@@ -26,10 +27,12 @@
 			<artifactId>jsch</artifactId>
 			<version>0.1.52</version>
 		</dependency>
+		<!-- <dependency> <groupId>jcifs</groupId> <artifactId>jcifs</artifactId> 
+			<version>1.3.17</version> </dependency> -->
 		<dependency>
-			<groupId>jcifs</groupId>
-			<artifactId>jcifs</artifactId>
-			<version>1.3.17</version>
+			<groupId>eu.agno3.jcifs</groupId>
+			<artifactId>jcifs-ng</artifactId>
+			<version>2.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -74,9 +77,9 @@
 						</manifestSections>
 					</archive>
 					<finalName>smb-tool</finalName>
-          <descriptors>
-            <descriptor>assembly.xml</descriptor>
-          </descriptors>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>
@@ -114,20 +117,23 @@
 					<!-- The Base URL of Nexus instance where we want to stage -->
 					<nexusUrl>https://nexusvie.automic.com/nexus</nexusUrl>
 					<stagingProfileId>${stagingProfileId}</stagingProfileId>
-					<!-- do NOT auto release after close as we need to retrieve CLM base url as long the staged repo exists -->
+					<!-- do NOT auto release after close as we need to retrieve CLM base 
+						url as long the staged repo exists -->
 					<!-- explicit release step in build script required (outside of POM) -->
-					<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
-					<!-- staging will remain open to publish the full action pack bundle into the repository -->
+					<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose> -->
+					<!-- staging will remain open to publish the full action pack bundle 
+						into the repository -->
 					<!-- beaware: staging repository needs to be closed within the buildsteps -->
 					<skipStagingRepositoryClose>true</skipStagingRepositoryClose>
-					<!-- will keep the deployed artifact even in case of errors for further debugging -->
+					<!-- will keep the deployed artifact even in case of errors for further 
+						debugging -->
 					<keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <artifactId>maven-resources-plugin</artifactId> <version>2.7</version>
-				<executions> <execution> <id>copy-resources</id> <phase>validate</phase>
-				<goals> <goal>copy-resources</goal> </goals> <configuration> <outputDirectory>${basedir}/target/samples</outputDirectory>
-				<resources> <resource> <directory>src/main/resources/sample</directory> <filtering>true</filtering>
+			<!-- <plugin> <artifactId>maven-resources-plugin</artifactId> <version>2.7</version> 
+				<executions> <execution> <id>copy-resources</id> <phase>validate</phase> 
+				<goals> <goal>copy-resources</goal> </goals> <configuration> <outputDirectory>${basedir}/target/samples</outputDirectory> 
+				<resources> <resource> <directory>src/main/resources/sample</directory> <filtering>true</filtering> 
 				</resource> </resources> </configuration> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
