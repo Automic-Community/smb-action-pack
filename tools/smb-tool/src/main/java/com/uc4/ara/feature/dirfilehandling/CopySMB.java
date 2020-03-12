@@ -61,7 +61,6 @@ public class CopySMB extends AbstractCopy {
 		}
 
 		FeatureUtil.logMsg("Connecting to " + path + " ...");
-	//	NtlmPasswordAuthentication ntlmPasswordAuthentication;
         NtlmPasswordAuthenticator ntlmPasswordAutenticator;
 		// this trick to bypass the strange way jcifs.smb handles anonymous user, that it distinguishes between blank string ("") and null passed to username/password
 		if (StringUtils.isBlank(username)) {
@@ -264,7 +263,7 @@ public class CopySMB extends AbstractCopy {
 			//Make sure the parent directory exists
 			SmbFile prFile = new SmbFile(remoteFile.getParent(), contextWithCred);
 			if(!prFile.exists() ) prFile.mkdirs();
-			if(! prFile.isDirectory())
+			if(!prFile.isDirectory())
 				FeatureUtil.logMsg("Remote Directory " + prFile.getCanonicalPath()  + " can't be created. Please check the path again. Aborting ...");
 
 			if (localFile.isDirectory())
