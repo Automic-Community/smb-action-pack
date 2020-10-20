@@ -1,0 +1,59 @@
+*** Settings ***
+Suite Setup       Suite Setup
+Force Tags        smb copy    win    unix    SMOKE_TEST
+Test Template     Export Template
+Resource          ../../resources/keywords.txt
+
+*** Test Cases ***    Overwrite1    Overwrite2     Source1                     Source2                   Message
+Copy Overwrite No     YES           NO             source                      source                    ${AlreadyExistsSkipping}
+
+Copy Overwrite Yes    YES           YES            source   				   source                    ${EMPTY}
+
+Copy Overwrite Skipping and Copying    
+                      YES           NO             source${/}Test1.ini         source${/}*               ${EMPTY}
+
+*** Keywords ***
+Export Template
+    [Arguments]    ${overwrite1}    ${overwrite2}    ${source1}    ${source2}    ${message}
+    Clean Up Directory    ${_WORKING_DIR}${/}target
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    #Action Set    ${PRT_SMB_PORT}    139
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source1}
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}
+    Action Set    ${PRT_SMB_USER}    administrator
+    Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    5000
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${_WORKING_DIR}${/}target
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    ${overwrite1}
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PRT_SMB_HOST}    VVNSATSTNDRD01
+    #Action Set    ${PRT_SMB_PORT}    139
+    Action Set    ${PRT_SMB_SRC_FILES_DIR}    ${source2}
+    #Action Set    ${PRT_SMB_DOMAIN_NAME}
+    Action Set    ${PRT_SMB_USER}    administrator
+    Action Set    ${PRT_SMB_PWD}    S3rv3r@Aut
+    Action Set    ${PRT_SMB_RECURSIVE_GET}    YES
+    #Action Set    ${PRT_SMB_CONNECT_TIMEOUT}    5000
+    Action Set    ${PRT_SMB_TGT_FILES_DIR}    ${_WORKING_DIR}${/}target
+    Action Set    ${PRT_SMB_TGT_OVERWRITE}    ${overwrite2}
+    Action Set    ${PRT_SMB_PRESERVE_ATT}    YES
+    Action Execute
+    Action Report Should Be Found
+    Action Return Code Should Be    0
+    Action Return Status Should Be    ${EndedOK}
+    Action Report Should Contain    ${message}
+    Action Report Should Contain    START AT
+    #Action Report Should Contain    PARAMETER VALIDATION START
+    #Action Report Should Contain    EXECUTION START
+    Action Report Should Contain    ENDED AT
+    Run Keyword If   '${overwrite2}' == 'NO'    Action Report Should Contain   ( overwrite is NO ). Skipping ...
+    Run Keyword If   '${overwrite2}' == 'YES'    Action Report Should Contain   Copying
+    Run Keyword If   '${overwrite2}' == 'YES' and '${source2}' == 'source'    Action Report Should Contain   Copying
+    Run Keyword If   '${overwrite2}' == 'YES' and '${source2}' == 'source${/}*'  Run Keywords
+	...   Action Report Should Contain   Copying
+    ...   AND   Action Report Should Contain   ( overwrite is NO ). Skipping ...
+    #Action Report Should Contain    RET-CODE

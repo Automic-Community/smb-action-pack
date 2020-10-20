@@ -1,0 +1,2 @@
+*** Settings ***
+Force Tags        %_package_name_%

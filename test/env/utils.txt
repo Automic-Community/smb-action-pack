@@ -1,0 +1,101 @@
+*** Variables ***
+${UTIL_ACTION_DELETE}    PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.DELETE
+${UTIL_ACTION_CREATE_DIR}    PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.CREATE_DIR
+${ACTION_COPY}    PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.COPY
+#--- Promptset PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.DELETE --------------
+${UTIL_PRT_DELETE_DIR_FILE_RM_NAME}    &UC4RB_DIR_FILE_RM_NAME#
+${UTIL_PRT_DELETE_DIR_FILE_RM_FAIL}    &UC4RB_DIR_FILE_RM_FAIL#
+#--- Promptset PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.CREATE_DIR --------------
+${UTIL_PRT_CREATEDIR_DIR_FILE_CREATE_DIR}    &UC4RB_DIR_FILE_CREATE_DIR#
+#--- Promptset PCK.AUTOMIC_FILESYSTEM.PUB.ACTION.COPY --------------
+${PROMPTSET_COPY_DIR_FILE_CP_SOURCE}    &UC4RB_DIR_FILE_CP_SOURCE#
+${PROMPTSET_COPY_DIR_FILE_CP_TARGET}    &UC4RB_DIR_FILE_CP_TARGET#
+${PROMPTSET_COPY_DIR_FILE_CP_OVERWRITE}    &UC4RB_DIR_FILE_CP_OVERWRITE#
+${PROMPTSET_COPY_EXCLUDE}    &UC4RB_COPY_EXCLUDE#
+${RC_COMMON_ERROR}    101
+
+*** Key Words ***
+Clean Up Directory
+    [Arguments]    ${directory}
+    Init Action    ${UTIL_ACTION_DELETE}
+    Action Set    ${UTIL_PRT_DELETE_DIR_FILE_RM_NAME}    ${directory}
+    Action Set    ${UTIL_PRT_DELETE_DIR_FILE_RM_FAIL}    YES
+    Action Execute
+    Init Action    ${UTIL_ACTION_CREATE_DIR}
+    Action Set    ${UTIL_PRT_CREATEDIR_DIR_FILE_CREATE_DIR}    ${directory}
+    Action Execute
+
+Clean Up Directory Remote
+    [Arguments]    ${directory}    ${agent}    ${login}
+    Action Create    ${UTIL_ACTION_DELETE}
+    Action Set    ${PRT_AGENT}    ${agent}
+    Action Set    ${PRT_LOGIN}    ${login}
+    Action Set    ${UTIL_PRT_DELETE_DIR_FILE_RM_NAME}    ${directory}
+    Action Set    ${UTIL_PRT_DELETE_DIR_FILE_RM_FAIL}    YES
+    Action Execute
+    Action Create    ${UTIL_ACTION_CREATE_DIR}
+    Action Set    ${PRT_AGENT}    ${agent}
+    Action Set    ${PRT_LOGIN}    ${login}
+    Action Set    ${UTIL_PRT_CREATEDIR_DIR_FILE_CREATE_DIR}    ${directory}
+    Action Execute
+
+Copy Test Data
+    [Arguments]    ${sourceFile}    ${target}
+    Init Action    ${ACTION_COPY}
+    Action Set    ${PROMPTSET_COPY_DIR_FILE_CP_SOURCE}    ${sourceFile}
+    Action Set    ${PROMPTSET_COPY_DIR_FILE_CP_TARGET}    ${target}
+    Action Set    ${PROMPTSET_COPY_DIR_FILE_CP_OVERWRITE}    YES
+    #Copy Test Data
+
+Copy Test Data Remote
+    [Arguments]    ${sourceFile}    ${target}    ${agent}    ${login}
+    Action Create    ${ACTION_COPY}
+    Action Set    ${PRT_AGENT}    ${agent}
+    Action Set    ${PRT_LOGIN}    ${login}
+    Action Set    ${PROMPTSET_COPY_DIR_FILE_CP_SOURCE}    ${sourceFile}
+    Action Set    ${PROMPTSET_COPY_DIR_FILE_CP_TARGET}    ${target}
+    Action Set    ${PROMPTSET_COPY_DIR_FILE_CP_OVERWRITE}    YES
+
+Action Report Should Contain
+    [Arguments]    ${text}
+    ${report} =    Action Get Report
+    Should Contain    ${report}    ${text}
+
+Action Report Should Be Found
+    ${report} =    Action Get Report
+    Should Not Be Empty    ${report}
+
+Action Report Should Not Be Found
+    ${report} =    Action Get Report
+    Should Be Empty    ${report}
+
+Action Return Code Should Be
+    [Arguments]    ${code}
+    ${returnCode}=    Action Get Variable    Return code
+    Should Be Equal    ${returnCode}    ${code}
+
+Action Return Code Should Equal
+    [Arguments]    ${code}
+    ${returnCode}=    Action Get Variable    Return code
+    Should Be Equal    ${returnCode}    ${code}
+
+Action Return Code Should Be
+    [Arguments]    ${code}
+    ${returnCode}=    Action Get Variable    Return code
+    Run Keyword If    ${code} == ${RC_COMMON_ERROR}    Should Be True    ${returnCode} >= ${RC_COMMON_ERROR}
+    Run Keyword If    ${code} < ${RC_COMMON_ERROR}    Should Be Equal    ${returnCode}    ${code}
+
+Action Return Status Should Be
+    [Arguments]    ${status}
+    ${returnStatus}=    Action Get Variable    Status
+    Should Be Equal    ${returnStatus}    ${status}
+
+Action Return Variable Should Be
+    [Arguments]    ${variableValue}
+    ${out}=    Action Get Variable    ${variableName}
+    Should Be Equal    ${out}    ${variableValue}
+
+Action Return Variable Should Be Equal As Integers
+    [Arguments]    ${variableValue}
+    ${out}=    Action Get Variable    ${variableName}
+    Should Be Equal As Integers    ${out}    ${variableValue}

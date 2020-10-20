@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.automic.actions</groupId>
+	<artifactId>smb-tool</artifactId>
+	<packaging>jar</packaging>
+	<version>${version}</version>
+	<name>smb-tool</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<vendor>Automic Software GmbH</vendor>
+		<version>1.2.2</version>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<stagingProfileId>1a31af05c07f29</stagingProfileId>
+		<logback.version>1.2.3</logback.version>
+		<slf4j.version>1.7.5</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.52</version>
+		</dependency>
+		<!-- <dependency> <groupId>jcifs</groupId> <artifactId>jcifs</artifactId> 
+			<version>1.3.17</version> </dependency> -->
+		<dependency>
+			<groupId>eu.agno3.jcifs</groupId>
+			<artifactId>jcifs-ng</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.uc4.ara.feature.AraFileCmd</mainClass>
+						</manifest>
+						<manifestSections>
+							<manifestSection>
+								<name>smb-tool</name>
+								<manifestEntries>
+									<Application-BuildDate>${timestamp}</Application-BuildDate>
+									<Application-Version>${version}</Application-Version>
+									<Implementation-Vendor>${vendor}</Implementation-Vendor>
+								</manifestEntries>
+							</manifestSection>
+						</manifestSections>
+					</archive>
+					<finalName>smb-tool</finalName>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- bind to the packaging phase -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>make-clm-zip</id>
+						<!-- this is used for inheritance merges -->
+						<phase>package</phase>
+						<!-- bind to the packaging phase -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>clm-libs-assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.5</version>
+				<extensions>true</extensions>
+				<configuration>
+					<!-- The server "id" element from settings to use authentication from -->
+					<serverId>com.automic.nexusvie</serverId>
+					<!-- The Base URL of Nexus instance where we want to stage -->
+					<nexusUrl>https://nexusvie.automic.com/nexus</nexusUrl>
+					<stagingProfileId>${stagingProfileId}</stagingProfileId>
+					<!-- do NOT auto release after close as we need to retrieve CLM base 
+						url as long the staged repo exists -->
+					<!-- explicit release step in build script required (outside of POM) -->
+					<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose> -->
+					<!-- staging will remain open to publish the full action pack bundle 
+						into the repository -->
+					<!-- beaware: staging repository needs to be closed within the buildsteps -->
+					<skipStagingRepositoryClose>true</skipStagingRepositoryClose>
+					<!-- will keep the deployed artifact even in case of errors for further 
+						debugging -->
+					<keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <artifactId>maven-resources-plugin</artifactId> <version>2.7</version> 
+				<executions> <execution> <id>copy-resources</id> <phase>validate</phase> 
+				<goals> <goal>copy-resources</goal> </goals> <configuration> <outputDirectory>${basedir}/target/samples</outputDirectory> 
+				<resources> <resource> <directory>src/main/resources/sample</directory> <filtering>true</filtering> 
+				</resource> </resources> </configuration> </execution> </executions> </plugin> -->
+		</plugins>
+	</build>
+</project>

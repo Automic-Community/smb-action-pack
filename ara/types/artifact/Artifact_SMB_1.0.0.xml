@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArtifactSourceType>
+  <Name>SMB</Name>
+  <Properties>
+    <Group name="Connection" displayName="Connection" expand="true">
+      <Property name="protocol" displayName="Protocol" mode="READONLY" type="SingleLineText">
+        <Defaultvalue>SMB</Defaultvalue>
+      </Property>
+      <Property name="host" displayName="Host" mode="EDITABLE" type="SingleLineText">
+        <Defaultvalue>127.0.0.1</Defaultvalue>
+        <Description>Host name or IP address. Ex: localhost or 192.168.1.2</Description>
+      </Property>
+      <Property name="port" displayName="Port"  mode="EDITABLE" type="Integer">
+        <Defaultvalue>139</Defaultvalue>
+        <Description>Specify a port number if a non standard port is to be used. Default: 139</Description>
+      </Property>
+      <Property name="connection_timeout" displayName="Connection Timeout" mode="EDITABLE" type="Integer">
+		<Description>Connection timeout in milliseconds.</Description>
+        <Defaultvalue>60000</Defaultvalue>
+      </Property> 
+    </Group>
+    <Group name="Credential" displayName="Credential" expand="true">
+      <Property name="username" displayName="Username" mode="EDITABLE" type="SingleLineText">
+        <Description>Username to authenticate with the server (if required by the server)</Description>
+      </Property>
+      <Property name="password" displayName="Password" mode="EDITABLE" type="Protected">
+        <Description>Password to authenticate with the server (if required by the server)</Description>
+      </Property>
+      <Property name="domain" displayName="Domain Name" mode="EDITABLE" type="SingleLineText">
+        <Description>Required if target machine belongs to a windows domain</Description>
+      </Property>
+    </Group>
+    <Group name="Settings" displayName="Settings" expand="false">
+      <Property name="preserve_att" displayName="Preserve File Attributes" mode="MANDATORY" type="SingleChoice">
+        <List>Yes#;#No</List>
+        <Defaultvalue>Yes</Defaultvalue>
+        <Description>Preserves creation/modification times and modes of the original files</Description>
+      </Property>
+      <Property name="recursive_download" displayName="Recursive Download" mode="MANDATORY" type="SingleChoice">
+        <Description>Recursively get files and directories. If set to no, only direct children of the directory are downloaded</Description>
+        <List>Yes#;#No</List>
+        <Defaultvalue>Yes</Defaultvalue>
+      </Property>
+    </Group>
+  </Properties>
+  <Description>Transfer artifact via windows shared files (SMB)</Description>
+  <Artifact>
+    <Properties>
+      <Group name="source" displayName="Source">
+        <Property name="source_path" displayName="Source Path" mode="EDITABLE" type="SingleLineText">
+          <Description>Remote file/directory to be downloaded</Description>
+        </Property>
+		<Property name="checksum_path" displayName="Checksum path" mode="EDITABLE" type="SingleLineText">
+          <Description>Remote artifact checksum file to be downloaded</Description>
+        </Property>
+		<Property name="archive_type" displayName="Archive Type" mode="EDITABLE" type="SingleChoice">
+          <List>#;#zip#;#tar#;#tar.gz</List>        
+        </Property>
+      </Group>	  
+    </Properties>
+  </Artifact>
+</ArtifactSourceType>
